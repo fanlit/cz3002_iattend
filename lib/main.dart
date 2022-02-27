@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'Templates.dart';
+import 'globalenv.dart';
+import 'LoginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,18 +50,16 @@ class StartUpPage extends StatefulWidget {
   State<StartUpPage> createState() => _StartUpPageState();
 }
 
+// Start-up Page
 class _StartUpPageState extends State<StartUpPage> {
-  double fonttitle = 50;
-  double fontregular = 20;
-  double iconsize = 3.5;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
       // color: Colors.green,
       child: Padding(
-        padding: const EdgeInsets.only(top: 100.0, left: 30, right: 30, bottom: 30),
+        padding:
+            const EdgeInsets.only(top: 100.0, left: 30, right: 30, bottom: 30),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -67,8 +68,8 @@ class _StartUpPageState extends State<StartUpPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        height: 152,
-                        width: 156,
+                        height: iconsize[0],
+                        width: iconsize[1],
                         decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(
@@ -85,8 +86,14 @@ class _StartUpPageState extends State<StartUpPage> {
                   width: 262.0,
                   height: 52.0,
                   child: ElevatedButton(
-                      onPressed: () {}, // TODO: Create the Login route
-                      child: const Text('Login',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPageState()));
+                      },
+                      child: const Text(
+                        'Login',
                         style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
                       ))),
               const SizedBox(height: 50), // space between the 2 buttons
@@ -95,7 +102,8 @@ class _StartUpPageState extends State<StartUpPage> {
                   height: 52.0,
                   child: ElevatedButton(
                       onPressed: () {}, // TODO: create the Register route
-                      child: const Text('Register',
+                      child: const Text(
+                        'Register',
                         style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
                       )))
             ]),
