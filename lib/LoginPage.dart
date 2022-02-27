@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
+import 'HomePage.dart';
 
 
 class LoginPageState extends StatelessWidget {
@@ -67,7 +68,9 @@ class LoginPageState extends StatelessWidget {
                                               width: 200.0,
                                               height: 52.0,
                                               child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: Implement email and password checking function and create Homepage
+                                                  onPressed: () {
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(username: 'tim',)));
+                                                  }, // TODO: Implement email and password checking function and create Homepage
 
                                                   child: const Text(
                                                     'Login',
