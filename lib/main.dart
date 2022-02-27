@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'RegisterPage.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'LoginPage.dart';
@@ -67,13 +68,7 @@ class _StartUpPageState extends State<StartUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                        height: iconsize[0],
-                        width: iconsize[1],
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/iAttendIcon.png')))),
+
                     Text("iAttend",
                         style: TextStyle(
                             fontSize: fonttitle,
@@ -101,7 +96,12 @@ class _StartUpPageState extends State<StartUpPage> {
                   width: 262.0,
                   height: 52.0,
                   child: ElevatedButton(
-                      onPressed: () {}, // TODO: create the Register route
+                      onPressed: () {
+                        Navigator.push( // TODO: create the Register route
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPageState()));
+                      }, 
                       child: const Text(
                         'Register',
                         style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
