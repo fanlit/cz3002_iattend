@@ -68,6 +68,13 @@ class _StartUpPageState extends State<StartUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    Container(
+                        height: iconsize[0],
+                        width: iconsize[1],
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/iAttendIcon.png')))),
 
                     Text("iAttend",
                         style: TextStyle(
@@ -97,7 +104,7 @@ class _StartUpPageState extends State<StartUpPage> {
                   height: 52.0,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push( // TODO: create the Register route
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => RegisterPageState()));
