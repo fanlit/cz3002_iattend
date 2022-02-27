@@ -20,27 +20,7 @@ class templatemaker {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), hintText: hint)),
           )
-        ]); 
-  }
-  Column TextfieldwithBG(String fieldname, String hint, TextEditingController controller, Color BGcolor){
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-              child: Text(fieldname,
-                  style: TextStyle(
-                      fontSize: fontregular,
-                      color: Colors.deepOrange,
-                      fontFamily: 'DMSans'))),
-          Container(
-            color: BGcolor,
-            height: 40,
-            child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: hint)),
-          )
-        ]); 
+        ]);
   }
 
   SizedBox BackButton(String name, BuildContext context) {
