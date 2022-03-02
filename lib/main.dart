@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'RegisterPage.dart';
-import 'Templates.dart';
 import 'globalenv.dart';
 import 'LoginPage.dart';
-import 'OrganiseEvent.dart';
 
 void main() {
   runApp(const MyApp());
