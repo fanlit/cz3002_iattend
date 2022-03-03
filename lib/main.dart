@@ -3,7 +3,11 @@ import 'RegisterPage.dart';
 import 'globalenv.dart';
 import 'LoginPage.dart';
 
+import 'package:cz3002_iattend/Services/LocatorService.dart';
+import 'FacialDetectionPage.dart';
+
 void main() {
+  setupServices(); //initialize the singleton
   runApp(const MyApp());
 }
 
@@ -111,7 +115,11 @@ class _StartUpPageState extends State<StartUpPage> {
                       child: const Text(
                         'Register',
                         style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
-                      )))
+                      ))),
+              //TODO
+              ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FacialDetectionPage()));}, 
+                child: Text("face"))
             ]),
       ),
     ));
