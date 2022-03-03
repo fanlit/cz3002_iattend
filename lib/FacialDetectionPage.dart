@@ -21,14 +21,14 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
 
   final log = Logger();
 
-  XFile? imageFile; 
   bool imageTaken = false;
   String outputText = "Please show face";
 
+  //will be passed to the camera widget so it will be executed when it is streaming images
   void onFaceDected(){ //TODO
     setState(() {
       if(_detectorService.faceDetected){outputText="Face detected";}
-      else{outputText="Please show face";}
+      else{outputText="Please show your face to the camera for attendance verification";}
     });
   }
 
@@ -68,7 +68,7 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
                               heading,
                               SizedBox(width: width, height: height * 0.6,child: Center(child: Camera(onFaceDeteced: onFaceDected,))),
                               const SizedBox(height: 50),
-                              Text(outputText),
+                              Text(outputText,textAlign: TextAlign.center),
                             ]))))));
 
   }

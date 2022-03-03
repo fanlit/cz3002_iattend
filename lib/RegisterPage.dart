@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
+import 'PhotoTakingPage.dart';
+
 
 class RegisterPageState extends StatelessWidget {
   templatemaker templatemkr = templatemaker();
@@ -70,7 +72,9 @@ class RegisterPageState extends StatelessWidget {
                                                     width: 60.0,
                                                     height: 60.0,
                                                     child: ElevatedButton.icon(
-                                                        onPressed: () {}  // TODO: Implement button to be able to open device camera
+                                                        onPressed: () {
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
+                                                        }  // TODO: Implement button to be able to open device camera
                                                           ,
                                                         icon: const Icon(Icons.camera_alt, size: 24),
                                                         label: const Text("")),
