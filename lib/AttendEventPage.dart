@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Templates.dart';
+import 'FacialDetectionPage.dart';
 import 'globalenv.dart';
 
 class AttendEventPageState extends StatelessWidget{
@@ -75,7 +76,9 @@ class AttendEventPageState extends StatelessWidget{
                                               width: 150.0,
                                               height: 52.0,
                                               child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: attend event
+                                                  onPressed: () {
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => FacialDetectionPage()));
+                                                  }, // TODO: attend event
                                                   child: const Text(
                                                     'ATTEND',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'DMSans'),
@@ -84,6 +87,5 @@ class AttendEventPageState extends StatelessWidget{
                                   )
                                     ])
                                 )])))))) ;
-    throw UnimplementedError();
   }
 }
