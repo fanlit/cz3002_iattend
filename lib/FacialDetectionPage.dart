@@ -1,6 +1,7 @@
 import 'package:cz3002_iattend/globalenv.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
 
 import 'package:cz3002_iattend/Services/LocatorService.dart';
@@ -25,9 +26,13 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
   String outputText = "Please show face";
 
   //will be passed to the camera widget so it will be executed when it is streaming images
-  void onFaceDected(){ //TODO
+  void onFaceDected(CameraImage image, Face? face){ //TODO
     setState(() {
-      if(_detectorService.faceDetected){outputText="Face detected";}
+      if(face != null){
+        outputText="Face detected";
+        //to get the face use this
+
+        }
       else{outputText="Please show your face to the camera for attendance verification";}
     });
   }

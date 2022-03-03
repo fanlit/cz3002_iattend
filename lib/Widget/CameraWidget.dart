@@ -12,7 +12,7 @@ import 'package:cz3002_iattend/Services/FacePainterService.dart';
 
 
 class Camera extends StatefulWidget {
-  final Function() onFaceDeteced; 
+  final Function(CameraImage image, Face? face) onFaceDeteced; 
   //pass in a function which tell what to do while detecting face  
   const Camera({ Key? key, required this.onFaceDeteced }) : super(key: key);
 
@@ -75,6 +75,7 @@ class _CameraState extends State<Camera> {
         if(_detectorService.faces.isNotEmpty){
           setState(() {
             faceDetected = _detectorService.faces[0]; 
+            // widget.onFaceDeteced(image, faceDetected);
           });
         }
         else{
@@ -82,7 +83,7 @@ class _CameraState extends State<Camera> {
             faceDetected = null;
           });
         }
-        widget.onFaceDeteced();
+        widget.onFaceDeteced(image, faceDetected);
         _detectingFaces = false;
       }
       catch(e){

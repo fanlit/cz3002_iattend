@@ -72,12 +72,12 @@ class CameraService{
   }
 
   Future<XFile?> takePicture(dynamic context) async{
-    if(!_detectorService.faceDetected){
-      showDialog(context: context, builder: (context){
-        return const AlertDialog(content: Text("No face detected"));
-      },);
-      return null;
-    }
+    // if(!_detectorService.faceDetected){
+    //   showDialog(context: context, builder: (context){
+    //     return const AlertDialog(content: Text("No face detected"));
+    //   },);
+    //   return null;
+    // }
 
     await Future.delayed(const Duration(milliseconds: 700));
     await _cameraController?.stopImageStream();

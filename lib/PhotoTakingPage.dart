@@ -8,6 +8,7 @@ import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 // import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 class PhotoTakingPage extends StatefulWidget {
   PhotoTakingPage({ Key? key }) : super(key: key);
@@ -22,6 +23,18 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
   XFile? imageFile;
 
   bool imageTaken = false;
+  bool faceDeteced = false;
+
+  void onFaceDetected(CameraImage image, Face? face){
+    setState(() {
+      if(face == null){
+        faceDeteced = false;
+      }
+      else{
+        faceDeteced = true;
+      }
+    });    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +58,25 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
 
     //if image not yet taken will display camera 
     if(!imageTaken){
-      body = Camera(onFaceDeteced: (){});
+      body = Camera(onFaceDeteced: onFaceDetected);
 
+      //if face is not deteced will display error else procceed to take photo
       floatingActionButton = FloatingActionButton(
-        onPressed: () async {
+        onPressed: faceDeteced ? () async {
           imageFile = await _cameraService.takePicture(context);
           if(imageFile != null){
             setState(() {
               imageTaken = true; 
             });
-          
           }
-        }, child: const Icon(Icons.camera));
+        } :() {
+          showDialog(context: context, builder: (context){
+            return const AlertDialog(content: Text("No face detected"));
+          },);
+        }, 
+        child: const Icon(Icons.camera));
     }
-    //if image take will display the captured image
+    //if image taken will display the captured image
     else{
       body = Transform(
         transform: Matrix4.rotationY(math.pi),
