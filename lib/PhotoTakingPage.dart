@@ -9,6 +9,7 @@ import 'package:cz3002_iattend/Services/CameraService.dart';
 // import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:cz3002_iattend/Services/MLService.dart';
 
 class PhotoTakingPage extends StatefulWidget {
   PhotoTakingPage({ Key? key }) : super(key: key);
@@ -20,8 +21,10 @@ class PhotoTakingPage extends StatefulWidget {
 
 class _PhotoTakingPageState extends State<PhotoTakingPage> {
   final CameraService _cameraService = locator<CameraService>();
+  final MLService _mlService = locator<MLService>();
   XFile? imageFile;
-
+  late CameraImage imageToConvert;
+  Face? faceToConvert;
   bool imageTaken = false;
   bool faceDeteced = false;
 
@@ -32,6 +35,8 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
       }
       else{
         faceDeteced = true;
+        imageToConvert = image;
+        faceToConvert = face;
       }
     });    
   }
@@ -40,7 +45,7 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
+    late List capturedToConvert;
     Widget heading, body, floatingActionButton;
 
     heading = Row(
@@ -87,6 +92,8 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
       floatingActionButton = FloatingActionButton(
         onPressed: (){
           //TODO
+          capturedToConvert = _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
+          print(capturedToConvert);
         }, child: const Text("Save"));
     }
 

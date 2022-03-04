@@ -10,7 +10,6 @@ import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
-import 'AuthLoadingPage.dart';
 
 class FacialDetectionPage extends StatefulWidget {
   const FacialDetectionPage({ Key? key }) : super(key: key);
@@ -35,11 +34,11 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
     setState(() async {
       if(face != null){
         outputText="Face detected";
-        faceDetected = true;
-        imagepath = await _cameraService.takePicture(context);
+        _cameraService.cameraController?.pausePreview();
+        // faceDetected = true;
         predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
         // print(predictedData);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoadingPage()));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoadingPage()));
       }
       else{outputText="Please show your face to the camera for attendance verification";}
     });
@@ -50,7 +49,9 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    Widget heading, body;
+    Widget heading;
+    Widget body;
+    // Widget body= Camera(onFaceDeteced: onFaceDetected)
 
     heading = Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +67,8 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
     );
 
     if(!faceDetected){
-      body = Camera(onFaceDeteced: onFaceDetected);
-    }else{
+      body = Camera(onFaceDeteced: onFaceDetected);}
+    else{
       body = Transform(
         transform: Matrix4.rotationY(math.pi),
         alignment: Alignment.center,
