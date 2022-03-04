@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
-
-import 'package:cz3002_iattend/Services/LocatorService.dart';
+// import 'package:cz3002_iattend/Services/MLService.dart';
+// import 'package:cz3002_iattend/Services/LocatorService.dart';
 // import 'package:cz3002_iattend/Services/CameraService.dart';
-import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
+// import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
+// import 'AuthLoadingPage.dart';
+
 
 class FacialDetectionPage extends StatefulWidget {
   const FacialDetectionPage({ Key? key }) : super(key: key);
@@ -18,24 +20,27 @@ class FacialDetectionPage extends StatefulWidget {
 
 class _FacialDetectionPageState extends State<FacialDetectionPage> {
   // final CameraService _cameraService = locator<CameraService>();
-  final FaceDetectorService _detectorService = locator<FaceDetectorService>();
-
+  // final FaceDetectorService _detectorService = locator<FaceDetectorService>();
+  // final MLService _mlService = locator<MLService>();
   final log = Logger();
 
   bool imageTaken = false;
   String outputText = "Please show face";
 
+
   //will be passed to the camera widget so it will be executed when it is streaming images
-  void onFaceDected(CameraImage image, Face? face){ //TODO
-    setState(() {
+  void onFaceDetected(CameraImage image, Face? face) {
+    setState(() async {
       if(face != null){
         outputText="Face detected";
-        //to get the face use this
-
+        // predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
+        // goto authentication loading page
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoadingPage()));
         }
       else{outputText="Please show your face to the camera for attendance verification";}
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +76,7 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
                             children: <Widget>[
                               const SizedBox(height: 50),
                               heading,
-                              SizedBox(width: width, height: height * 0.6,child: Center(child: Camera(onFaceDeteced: onFaceDected,))),
+                              SizedBox(width: width, height: height * 0.6,child: Center(child: Camera(onFaceDeteced: onFaceDetected,))),
                               const SizedBox(height: 50),
                               Text(outputText,textAlign: TextAlign.center),
                             ]))))));
