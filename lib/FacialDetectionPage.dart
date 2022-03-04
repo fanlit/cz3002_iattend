@@ -21,7 +21,6 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
   final MLService _mlService = locator<MLService>();
   final log = Logger();
-  bool faceDetected = false;
   XFile? imagepath;
   bool imageTaken = false;
   String outputText = "Please show face";
@@ -33,10 +32,7 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
       if(face != null){
         outputText="Face detected";
         _cameraService.cameraController?.pausePreview();
-        // faceDetected = true;
         predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
-        // print(predictedData);
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoadingPage()));
       }
       else{outputText="Please show your face to the camera for attendance verification";}
     });
