@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
-import 'dart:math' as math;
-import 'dart:io';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
@@ -31,7 +29,7 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
 
   //will be passed to the camera widget so it will be executed when it is streaming images
   void onFaceDetected(CameraImage image, Face? face){
-    setState(() async {
+    setState(() {
       if(face != null){
         outputText="Face detected";
         _cameraService.cameraController?.pausePreview();
@@ -50,8 +48,6 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
     double height = MediaQuery.of(context).size.height;
 
     Widget heading;
-    Widget body;
-    // Widget body= Camera(onFaceDeteced: onFaceDetected)
 
     heading = Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,15 +62,6 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
         ]
     );
 
-    if(!faceDetected){
-      body = Camera(onFaceDeteced: onFaceDetected);}
-    else{
-      body = Transform(
-        transform: Matrix4.rotationY(math.pi),
-        alignment: Alignment.center,
-        child: Image.file(File(imagepath!.path), fit: BoxFit.fill,),
-      );}
-
     return Scaffold(
       // resizeToAvoidBottomInset: false,
         body: Container(
@@ -88,7 +75,7 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
                             children: <Widget>[
                               const SizedBox(height: 50),
                               heading,
-                              SizedBox(width: width, height: height * 0.6,child: Center(child: body)),
+                              SizedBox(width: width, height: height * 0.6,child: Center(child: Camera(onFaceDeteced: onFaceDetected))),
                               const SizedBox(height: 50),
                               Text(outputText,textAlign: TextAlign.center),
                             ]))))));
