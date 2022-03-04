@@ -4,7 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cz3002_iattend/Services/MLService.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
@@ -23,6 +23,7 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   final CameraService _cameraService = locator<CameraService>();
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
+  final MLService _mlService = locator<MLService>();
   final log = Logger();
 
   bool _initializing = false;
@@ -41,6 +42,7 @@ class _CameraState extends State<Camera> {
   void dispose(){
     _cameraService.dispose();
     _detectorService.dispose();
+    _mlService.dispose();
     super.dispose();
   }
 
@@ -51,6 +53,7 @@ class _CameraState extends State<Camera> {
 
     await _cameraService.initialize();
     _detectorService.initialize();
+    await _mlService.initialize();
 
     setState(() {
       _initializing = false;

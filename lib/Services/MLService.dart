@@ -1,6 +1,4 @@
-import 'dart:io';
-import 'dart:math';
-
+// import 'dart:math';
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -16,27 +14,10 @@ class MLService {
   List get predictedData => _predictedData;
 
   Future initialize() async {
-    // by default assume iOS is used
-    Delegate delegate = GpuDelegate(
-      options: GpuDelegateOptions(true, TFLGpuDelegateWaitType.active),
-    );
     try {
-      if (Platform.isAndroid) {
-        delegate = GpuDelegateV2(
-            options: GpuDelegateOptionsV2(
-              false,
-              TfLiteGpuInferenceUsage.fastSingleAnswer,
-              TfLiteGpuInferencePriority.minLatency,
-              TfLiteGpuInferencePriority.auto,
-              TfLiteGpuInferencePriority.auto,
-            ));
-      }
-      var interpreterOptions = InterpreterOptions()..addDelegate(delegate);
-      _interpreter = await Interpreter.fromAsset('mobilefacenet.tflite',
-          options: interpreterOptions);
-    }
-    catch (e) {
-      print('Model load failure');
+      this._interpreter = await Interpreter.fromAsset('mobilefacenet.tflite',);
+    } catch (e) {
+      print('Failed to load model.');
       print(e);
     }
   }
@@ -92,19 +73,23 @@ class MLService {
     _interpreter.run(input, output);
     output = output.reshape([192]);
 
-    _predictedData = List.from(output);
-    return _predictedData;
+    this._predictedData = List.from(output);
+    return this._predictedData;
     // TODO: save _predictedData into DB.
   }
 
-  double _euclideanDistance(List e1, List e2) {
-    if (e1 == null || e2 == null) throw Exception("Null argument");
+  // double _euclideanDistance(List e1, List e2) {
+  //   if (e1 == null || e2 == null) throw Exception("Null argument");
+  //
+  //   double sum = 0.0;
+  //   for (int i = 0; i < e1.length; i++) {
+  //     sum += pow((e1[i] - e2[i]), 2);
+  //   }
+  //   return sqrt(sum);
+  // }
 
-    double sum = 0.0;
-    for (int i = 0; i < e1.length; i++) {
-      sum += pow((e1[i] - e2[i]), 2);
-    }
-    return sqrt(sum);
+  dispose() {
+
   }
 }
 
