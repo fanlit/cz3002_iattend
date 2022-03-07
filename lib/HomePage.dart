@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cz3002_iattend/AttendEventPage.dart';
+import 'package:cz3002_iattend/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
 
@@ -60,7 +61,13 @@ class HomePage extends StatelessWidget {
                   //TODO go to page
                   Padding(padding: EdgeInsets.only(left: 40),child:ElevatedButton.icon(onPressed: () {}, icon: Icon(Icons.settings, size: 30, color: Colors.white,), label: Text("Setting", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
                   Spacer(),
-                  Padding(padding: EdgeInsets.only(right: 40),child:ElevatedButton.icon(onPressed: () {}, icon: Icon(Icons.menu, size: 30, color: Colors.white,), label: Text("View Profile", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
+                  Padding(padding: EdgeInsets.only(right: 40),child:ElevatedButton.icon(onPressed: () {
+                                                                                                        Navigator.push(
+                                                                                                          context,
+                                                                                                          MaterialPageRoute(builder: (context)=> ProfilePageState())
+                                                                                                        );
+                    
+                  }, icon: Icon(Icons.menu, size: 30, color: Colors.white,), label: Text("View Profile", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
                 ],
               ),
               width: double.infinity,
