@@ -54,7 +54,8 @@ class CameraService{
     _cameraController = CameraController(
       description, 
       ResolutionPreset.low,
-      enableAudio: false,);
+      enableAudio: false,
+      );
     await _cameraController?.initialize();
   }
 
@@ -72,17 +73,10 @@ class CameraService{
   }
 
   Future<XFile?> takePicture(dynamic context) async{
-    // if(!_detectorService.faceDetected){
-    //   showDialog(context: context, builder: (context){
-    //     return const AlertDialog(content: Text("No face detected"));
-    //   },);
-    //   return null;
-    // }
 
     await Future.delayed(const Duration(milliseconds: 700));
     await _cameraController?.stopImageStream();
     await Future.delayed(const Duration(milliseconds: 300));
-    
     _imageFile = await _cameraController!.takePicture();
     _imagePath = _imageFile?.path;
     return _imageFile;

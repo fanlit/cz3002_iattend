@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'HomePage.dart';
+import 'Widget/ProfilePictureWidget.dart';
 
 
 class ProfilePageState extends StatelessWidget {
@@ -37,10 +38,7 @@ class ProfilePageState extends StatelessWidget {
                                    child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children:<Widget>[
-                                      CircleAvatar(
-                                        //backgroundImage: NetworkImage(userAvatarUrl), #TODO link profile picture to fetch 
-                                        child: const Text('PIC'), radius: 70,
-                                      ),
+                                      ProfilePicture(),
                                       Text("Username",  // to be changed to fetching of username
                                       style: TextStyle(
                                           fontSize: 26,

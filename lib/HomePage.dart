@@ -2,8 +2,11 @@
 
 import 'package:cz3002_iattend/AttendEventPage.dart';
 import 'package:cz3002_iattend/ProfilePage.dart';
+import 'package:cz3002_iattend/globalenv.dart';
 import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
+
+import 'Widget/ProfilePictureWidget.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -23,15 +26,11 @@ class HomePage extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.deepOrange),
           ),
 
-          Container(//Image
-            margin: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 100),
-            child: Center(child: 
-              ClipOval(
-                child: Image.asset(imagePath)
-              )
-            ),          
-          ),        
+          SizedBox(height: 30,),
+          ProfilePicture(), 
+          SizedBox(height: 30,),       
 
+          //attend and organise buttons
           Center(child:
             Column(children: <Widget>[
               SizedBox(

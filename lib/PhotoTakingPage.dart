@@ -10,6 +10,7 @@ import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
+import 'globalenv.dart';
 
 class PhotoTakingPage extends StatefulWidget {
   PhotoTakingPage({ Key? key }) : super(key: key);
@@ -22,6 +23,7 @@ class PhotoTakingPage extends StatefulWidget {
 class _PhotoTakingPageState extends State<PhotoTakingPage> {
   final CameraService _cameraService = locator<CameraService>();
   final MLService _mlService = locator<MLService>();
+
   XFile? imageFile;
   late CameraImage imageToConvert;
   Face? faceToConvert;
@@ -91,7 +93,8 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
 
       floatingActionButton = FloatingActionButton(
         onPressed: (){
-          //TODO
+          //TODO saving image
+          profilePicturePath = imageFile!.path;
           capturedToConvert = _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
           print(capturedToConvert);
         }, child: const Text("Save"));
@@ -111,7 +114,7 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
                             children: <Widget>[
                               const SizedBox(height: 50),
                               heading,
-                              SizedBox(width: width, height: height * 0.6,child: body),
+                              SizedBox(width: width, height: height * 0.6, child: body),
                             ]))))
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

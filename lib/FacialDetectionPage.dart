@@ -31,8 +31,8 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
     setState(() {
       if(face != null){
         outputText="Face detected";
-        _cameraService.cameraController?.pausePreview();
-        predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
+        // _cameraService.cameraController?.pausePreview();
+        // predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
       }
       else{outputText="Please show your face to the camera for attendance verification";}
     });
