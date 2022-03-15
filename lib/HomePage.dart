@@ -57,16 +57,16 @@ class HomePage extends StatelessWidget {
               height: 70,
               child: Row(
                 children: <Widget>[
-                  //TODO go to page
-                  Padding(padding: EdgeInsets.only(left: 40),child:ElevatedButton.icon(onPressed: () {}, icon: Icon(Icons.settings, size: 30, color: Colors.white,), label: Text("Setting", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
+
+                  Padding(padding: EdgeInsets.only(left: 40),child:ElevatedButton.icon(onPressed: () {
+                    //TODO log out function
+                  }, icon: Icon(Icons.logout, size: 30, color: Colors.white,), label: Text("Log Out", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
                   Spacer(),
+
                   Padding(padding: EdgeInsets.only(right: 40),child:ElevatedButton.icon(onPressed: () {
-                                                                                                        Navigator.push(
-                                                                                                          context,
-                                                                                                          MaterialPageRoute(builder: (context)=> ProfilePageState())
-                                                                                                        );
-                    
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> ProfilePageState()));
                   }, icon: Icon(Icons.menu, size: 30, color: Colors.white,), label: Text("View Profile", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
+
                 ],
               ),
               width: double.infinity,
