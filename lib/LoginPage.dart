@@ -10,6 +10,8 @@ class LoginPageState extends StatelessWidget {
   TextEditingController shdw_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
         body: Container(
@@ -17,6 +19,8 @@ class LoginPageState extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
+                      width: width,
+                      height: height,
                       // color: Colors.green,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,6 +85,6 @@ class LoginPageState extends StatelessWidget {
                                     ]))
                           ],
                         ))))));
-    throw UnimplementedError();
+
   }
 }

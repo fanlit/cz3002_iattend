@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
-import 'HomePage.dart';
 import 'Widget/ProfilePictureWidget.dart';
 
 
@@ -50,11 +49,11 @@ class ProfilePageState extends StatelessWidget {
                                 height: 400,
                                 width: 350,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     SizedBox(
-                                              width: 170,
+                                              width: 150,
                         
                                               child: ElevatedButton(
                                                   onPressed: () {}, // TODO: show organized events
@@ -64,7 +63,7 @@ class ProfilePageState extends StatelessWidget {
                                                   ))),
                                     SizedBox(width: 10),
                                     SizedBox(
-                                              width: 170,
+                                              width: 150,
                         
                                               child: ElevatedButton(
                                                   onPressed: () {}, // TODO: show attended events
@@ -86,6 +85,6 @@ class ProfilePageState extends StatelessWidget {
                                 ]
     )
     )]))))));
-                                throw UnimplementedError();
+
   }
 }
