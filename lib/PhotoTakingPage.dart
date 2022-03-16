@@ -47,7 +47,7 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    late List capturedToConvert;
+    // late List capturedToConvert;
     Widget heading, body, floatingActionButton;
 
     heading = Row(
@@ -95,8 +95,9 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
         onPressed: (){
           //TODO saving image
           profilePicturePath = imageFile!.path;
-          capturedToConvert = _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
-          print(capturedToConvert);
+          // capturedToConvert = _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
+          // print(capturedToConvert);
+          userFaceArray= _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
         }, child: const Text("Save"));
     }
 

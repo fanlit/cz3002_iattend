@@ -1,14 +1,15 @@
-// import 'dart:math';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as imglib;
+import 'package:cz3002_iattend/globalenv.dart';
 import 'ImageConverter.dart';
 
 class MLService {
   late Interpreter _interpreter;
-  double threshold = 0.5;
+  double threshold = 0.6;
 
   late List _predictedData;
   List get predictedData => _predictedData;
@@ -78,15 +79,26 @@ class MLService {
     // TODO: save _predictedData into DB.
   }
 
-  // double _euclideanDistance(List e1, List e2) {
-  //   if (e1 == null || e2 == null) throw Exception("Null argument");
-  //
-  //   double sum = 0.0;
-  //   for (int i = 0; i < e1.length; i++) {
-  //     sum += pow((e1[i] - e2[i]), 2);
-  //   }
-  //   return sqrt(sum);
-  // }
+  double _euclideanDistance(List e1, List e2) {
+    if (e1 == null || e2 == null) throw Exception("Null argument");
+
+    double sum = 0.0;
+    for (int i = 0; i < e1.length; i++) {
+      sum += pow((e1[i] - e2[i]), 2);
+    }
+    return sqrt(sum);
+  }
+
+  bool searchResult(List predictedData) {
+    // double minDist = 0.3;
+    double currDist = 0.0;
+
+    currDist = _euclideanDistance(userFaceArray, predictedData);
+    if(currDist <= threshold){
+      return true;
+    }
+    else{return false;}
+  }
 
   dispose() {
 

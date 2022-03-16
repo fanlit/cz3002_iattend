@@ -28,11 +28,19 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
 
   //will be passed to the camera widget so it will be executed when it is streaming images
   void onFaceDetected(CameraImage image, Face? face){
+    bool authRes = false;
     setState(() {
       if(face != null){
-        outputText="Face detected";
-        // _cameraService.cameraController?.pausePreview();
-        // predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
+        // outputText="Face detected";
+        predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
+        authRes = _mlService.searchResult(predictedData);
+        if(authRes == true){
+          _cameraService.cameraController?.pausePreview();
+          outputText = "Authenticated!";
+        }
+        else{
+          outputText = "Not Authenticated";
+        }
       }
       else{outputText="Please show your face to the camera for attendance verification";}
     });

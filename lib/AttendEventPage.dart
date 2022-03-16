@@ -78,7 +78,7 @@ class AttendEventPageState extends StatelessWidget{
                                               child: ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.push(context, MaterialPageRoute(builder: (context) => FacialDetectionPage()));
-                                                  }, // TODO: attend event
+                                                  },
                                                   child: const Text(
                                                     'ATTEND',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'DMSans'),
