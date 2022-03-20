@@ -12,7 +12,7 @@ class UserDataService
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
   //Create data upon signup/existing user updates data
-  Future updateUserData(String email, String firstName, String lastName) async
+  Future createUserData(String email, String firstName, String lastName) async
   {
     //Find the document corresponding to the uid in the collection.
     //If no such document exists (first sign up etc), create one.
