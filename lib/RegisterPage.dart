@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'Services/AuthenticationService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
-
 import 'PhotoTakingPage.dart';
 
 
-class RegisterPageState extends StatelessWidget {
+class RegisterPageState extends StatefulWidget {
+  @override
+  State<RegisterPageState> createState() => _RegisterPageStateState();
+}
+
+class _RegisterPageStateState extends State<RegisterPageState> {
+  final AuthenticationService _auth = AuthenticationService();
+  final _formKey = GlobalKey<FormState>();
+  String name = '';
+  String email = '';
+  String password = '';
+  String repeatpassword = '';
+  String error = '';
+
   templatemaker templatemkr = templatemaker();
-  TextEditingController email_controller = TextEditingController();
-  TextEditingController name_controller = TextEditingController();
-  TextEditingController shdw_controller = TextEditingController();
-  TextEditingController shdw2_controller = TextEditingController();
+
+  // TextEditingController email_controller = TextEditingController();
+  // TextEditingController name_controller = TextEditingController();
+  // TextEditingController shdw_controller = TextEditingController();
+  // TextEditingController shdw2_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,69 +52,186 @@ class RegisterPageState extends StatelessWidget {
                                 ]),
                             const SizedBox(height: 40), //spacing n between logo and fields
                             Container(
-                              color: Color.fromRGBO(199, 199, 199, 1),  // background color
-                                height: 470,
-                                width: 350,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:<Widget>[
-                                  templatemkr.TextfieldwithBG("Name", "Name", name_controller,Color.fromRGBO(255, 255, 255, 1)),
-                                const SizedBox(height:20),
-                                templatemkr.TextfieldwithBG("Email", "Email", email_controller,Color.fromRGBO(255, 255, 255, 1)),
-                                const SizedBox(height:30),
-                                templatemkr.TextfieldwithBG("Pasword", "Password", shdw_controller,Color.fromRGBO(255, 255, 255, 1)),
-                                const SizedBox(height:40),
-                                templatemkr.TextfieldwithBG("Repeat Password", "Password", shdw2_controller,Color.fromRGBO(255, 255, 255, 1)),
-                                const SizedBox(height:50),
-                                Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          SizedBox(
-                                              width: 200.0,
-                                              height: 60.0,
-                                              child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: upload photo
-                                                  child: const Text(
-                                                    'Upload Facial Picture',
-                                                    style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
-                                                  ))),
-                                                  SizedBox(width:50), // spacing in between upload and camera
-                                                  SizedBox( //camera logo
-                                                    width: 60.0,
-                                                    height: 60.0,
-                                                    child: ElevatedButton.icon(
-                                                        onPressed: () {
-                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
-                                                        }  // TODO: Implement button to be able to open device camera
-                                                          ,
-                                                        icon: const Icon(Icons.camera_alt, size: 24),
-                                                        label: const Text("")),
-                                                            )
-                                        ]
-                                  )])),
+                                // color: Color.fromRGBO(199, 199, 199, 1),  // background color
+                                // height: 600,
+                                // width: 350,
+                                child: Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:<Widget>[
+                                      // templatemkr.TextfieldwithBG("Name", "Name", name_controller,Color.fromRGBO(255, 255, 255, 1)),
+                                      Text("Name",
+                                          style: TextStyle(
+                                              fontSize: fontregular,
+                                              color: Colors.deepOrange,
+                                              fontFamily: 'DMSans'
+                                          )),
+                                      TextFormField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(), hintText: "Name"
+                                          ),
+                                          validator: (val) => val!.isEmpty ? 'Please enter name' : null,
+                                          onChanged: (val) {
+                                            setState(() => name = val);
+                                          }
+                                      ),
+                                      const SizedBox(height:20),
+                                      // templatemkr.TextfieldwithBG("Email", "Email", email_controller,Color.fromRGBO(255, 255, 255, 1)),
+                                      Text("Email",
+                                          style: TextStyle(
+                                              fontSize: fontregular,
+                                              color: Colors.deepOrange,
+                                              fontFamily: 'DMSans'
+                                          )),
+                                      TextFormField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(), hintText: "Email"
+                                          ),
+                                          validator: (val) => validateEmail(val),
+                                          onChanged: (val) {
+                                            setState(() => email = val);
+                                          }
+                                      ),
+                                      const SizedBox(height:20),
+                                      // templatemkr.TextfieldwithBG("Password", "Password", shdw_controller,Color.fromRGBO(255, 255, 255, 1)),
+                                      Text("Password",
+                                          style: TextStyle(
+                                              fontSize: fontregular,
+                                              color: Colors.deepOrange,
+                                              fontFamily: 'DMSans'
+                                          )),
+                                      TextFormField(
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(), hintText: "Password"
+                                          ),
+                                          validator: (val) => validatePassword(val),
+                                          onChanged: (val) {
+                                            setState(() => password = val);
+                                          }
+                                      ),
+                                      const SizedBox(height:20),
+                                      // templatemkr.TextfieldwithBG("Repeat Password", "Password", shdw2_controller,Color.fromRGBO(255, 255, 255, 1)),
+                                      Text("Repeat Password",
+                                          style: TextStyle(
+                                              fontSize: fontregular,
+                                              color: Colors.deepOrange,
+                                              fontFamily: 'DMSans'
+                                          )),
+                                      TextFormField(
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(), hintText: "Password"
+                                          ),
+                                          validator: (val) {
+                                            if (val == null || val.isEmpty) {
+                                              return 'Please enter password again';
+                                            }
+                                            if (val != password) {
+                                              return 'Passwords do not match';
+                                            }
+                                            return null;
+                                          },
+                                          onChanged: (val) {
+                                            setState(() => repeatpassword = val);
+                                          }
+                                      ),
+                                      const SizedBox(height:20),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                                width: 200.0,
+                                                height: 60.0,
+                                                child: ElevatedButton(
+                                                    onPressed: () {}, // TODO: upload photo
+                                                    child: const Text(
+                                                      'Upload Facial Picture',
+                                                      style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
+                                                    ))),
+                                                    SizedBox(width:50), // spacing in between upload and camera
+                                                    SizedBox( //camera logo
+                                                      width: 60.0,
+                                                      height: 60.0,
+                                                      child: ElevatedButton.icon(
+                                                          onPressed: () {
+                                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
+                                                          }  // TODO: Implement button to be able to open device camera
+                                                            ,
+                                                          icon: const Icon(Icons.camera_alt, size: 24),
+                                                          label: const Text("")),
+                                                              )
+                                          ]
+                                    ),
+                                      const SizedBox(height:20)
+                                    ]),
+                                )),
+                            const SizedBox(height:20),
                             Container(
                               height:100,
                               width:300,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                SizedBox(
-                                              width: 300.0,
-                                              height: 52.0,
-                                              child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: Create account with details
-                                                  child: const Text(
-                                                    'register',
-                                                    style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
-                                                  )))
+                                  SizedBox(
+                                    width: 300.0,
+                                    height: 52.0,
+                                    child: ElevatedButton(
+                                        onPressed: () async {
+                                          if (_formKey.currentState!.validate()) {
+                                            dynamic result = await _auth.registerWithEmailAndPassword(email, password, name);
+                                            if (result == null) {
+                                              setState(() => error = 'Registration unsuccessful, please try again');
+                                            }
+                                            else {
+                                              setState(() => error = '');
+                                              Navigator.pop(context, false);
+                                            }
+                                          }
+                                        }, // TODO: Create account with details
+                                        child: const Text(
+                                          'Register',
+                                          style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
+                                        ))),
+                                  SizedBox(height: 12.0),
+                                  Text(
+                                    error,
+                                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                  )
                                 ]
-
                               )
-    
     )]))))));
     throw UnimplementedError();
+  }
+
+  String? validateEmail(String? value) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    else {
+      return null;
+    }
+  }
+
+  String? validatePassword(String? value) {
+    RegExp regex =
+    // RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    if (value == null || value.isEmpty) {
+      return 'Please enter password';
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter a valid password';
+      } else {
+        return null;
+      }
+    }
   }
 }

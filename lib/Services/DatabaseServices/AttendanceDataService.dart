@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cz3002_iattend/Models/attendance.dart';
 import 'package:cz3002_iattend/Models/event.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../Models/user.dart';
+import 'package:cz3002_iattend/Models/iAttendUser.dart';
 
 class AttendanceDataService {
 

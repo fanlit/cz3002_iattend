@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../Models/user.dart';
+import '../../Models/iAttendUser.dart';
 
 class UserDataService
 {
@@ -25,10 +25,10 @@ class UserDataService
   }
 
   //User list from snapshot
-  List<User> _UserListFromSnapshot(QuerySnapshot snapshot)
+  List<iAttendUser> _UserListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.docs.map((doc){
-      return User(
+      return iAttendUser(
         doc.get('email').toString() ?? '',
         doc.get('firstName').toString() ?? '',
         doc.get('lastName').toString() ?? '',
@@ -37,7 +37,7 @@ class UserDataService
   }
 
   //Get Users Stream
-  Stream<List<User>> get users
+  Stream<List<iAttendUser>> get users
   {
     return userCollection.snapshots().map(_UserListFromSnapshot);
   }

@@ -6,16 +6,20 @@ import 'package:cz3002_iattend/globalenv.dart';
 import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
 
+import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
 
 
 class HomePage extends StatelessWidget {
-  HomePage({ Key? key, required String this.username}) : super(key: key);
-  String username;
+  // HomePage({Key? key, required String this.username}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final AuthenticationService _auth = AuthenticationService();
+  String username = '';
   String imagePath = 'assets/images/tim.jpg'; //todo change file path
 
   @override
   Widget build(BuildContext context) {
+    username = _auth.getCurrentDisplayName().toString();
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -58,8 +62,8 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: <Widget>[
 
-                  Padding(padding: EdgeInsets.only(left: 40),child:ElevatedButton.icon(onPressed: () {
-                    //TODO log out function
+                  Padding(padding: EdgeInsets.only(left: 40),child:ElevatedButton.icon(onPressed: () async {
+                    await _auth.signOut();
                   }, icon: Icon(Icons.logout, size: 30, color: Colors.white,), label: Text("Log Out", style:TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),)),
                   Spacer(),
 
