@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'Services/DatabaseServices/EventDataService.dart';
+import 'Models/event.dart';
 import 'globalenv.dart';
 
-class templatemaker {
+class TemplateMaker {
+
+
   Column Textfield(
       String fieldname, String hint, TextEditingController controller) {
     return Column(
@@ -18,7 +22,7 @@ class templatemaker {
             child: TextField(
                 controller: controller,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: hint)),
+                    border: const OutlineInputBorder(), hintText: hint)),
           )
         ]);
   }
@@ -40,7 +44,7 @@ class templatemaker {
             child: TextField(
                 controller: controller,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: hint)),
+                    border: const OutlineInputBorder(), hintText: hint)),
           )
         ]);
   }
@@ -63,12 +67,15 @@ class templatemaker {
             child: TextField(
                 controller: controller,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     hintText: hint,
                     hintStyle: TextStyle(color: HintTextcolor))),
           )
         ]);
   }
+
+  // BACK BUTTON
+  // Back Buttons are the buttons users press to go back to the previous page. More useful for iOS devices
 
   SizedBox BackButton(String name, BuildContext context) {
     return SizedBox(
@@ -85,7 +92,7 @@ class templatemaker {
 
   Container Attendee(String username, String email, String regdate) {
     return Container(
-      constraints: BoxConstraints(maxHeight: double.infinity),
+      constraints: const BoxConstraints(maxHeight: double.infinity),
       color: Colors.deepOrange,
       width: double.infinity,
       height: 90,
@@ -95,21 +102,21 @@ class templatemaker {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 "Name: " + username,
                 softWrap: true,
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
               Text(
                 "Email: " + email,
                 softWrap: true,
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
               Text(
                 "Reg. Date: " + regdate,
                 softWrap: true,
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
             ],
           ))),
@@ -121,11 +128,12 @@ class templatemaker {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Attendee(username, email, regdate),
-          SizedBox(height: 10)
+          const SizedBox(height: 10)
         ]);
   }
 
-  Container PopulateAttendance() {
+  Container PopulateItems() {
+    // 1 = PopulateAttendee, 2 = Populate Organised, 3= Populate Organised
     // Dummy data
     var attendees = [
       ['Jim', 'Jim@gmail.com', '2/3/2022'],
@@ -134,7 +142,11 @@ class templatemaker {
       ['Jane3', 'Jane@gmail.com', '2/3/2022'],
       ['Jane4', 'Jane@gmail.com', '2/3/2022'],
       ['Jane5', 'Jane@gmail.com', '2/3/2022']
-    ]; // TODO: implement JSON data acquisition to populate with actual attendees
+    ];
+
+    // TODO: implement data acquisition from backend to populate
+
+
     return Container(
         // color: Colors.amberAccent,
         height: 380,
@@ -142,11 +154,130 @@ class templatemaker {
         child: SingleChildScrollView(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-              // Participant module here!
+                children: [
               for (var i = 0; i < 6; i++)
                 attendeeModule(
                     attendees[i][0], attendees[i][1], attendees[i][2])
             ])));
+  }
+
+  Container EventDetailsContainer(var eventCode) {
+    //Dummy data
+    var eventDetails = [
+      ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!"],
+      ["gameshow 2", "NTU Auditorium 2", "27/3/2022, 13:40", "This is dummy event data.\nPlease implement the function to aquire the data from backend!!"],
+      ["gameshow 3", "NTU Auditorium 3", "28/3/2022, 13:50", "This is dummy event data.\nPlease implement the function to aquire the data from backend!!!"]
+    ];
+
+
+    // TODO: Implement EventCode generator. For now, code line below not to be used until event creation works
+    // EventDataService eventserver = EventDataService(eventCode);
+    // Can return as a list similar to the above?
+    // Event eventDetails = eventserver.getEventById(eventCode) as Event;
+
+    return Container(
+        color: const Color.fromARGB(255, 182, 182, 182), // background color
+        height: 450,
+        width: 350,
+        child: Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 5),
+            child: SingleChildScrollView(
+                child: Container(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+
+                          // Row to display event name text
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width: 120, child:Text("Name: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display event name here!
+                              Expanded(child: Text(eventDetails[0][0],
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
+
+                          const SizedBox(height: 10),
+
+                          //Row to display Venue
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width: 120, child: Text("Venue:",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display Venue name here!
+                              Expanded(child: Text(eventDetails[0][1],
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
+
+                          const SizedBox(height: 10),
+
+                          //Row to display event date and time
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width:120 ,child: Text("DateTime: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display event date here!
+                              Expanded(child: Text(eventDetails[0][2],
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
+
+                          const SizedBox(height: 10),
+
+                          // Row to display event description
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width: 120, child:Text("Description: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display Description here!
+                              Expanded(child: Text(eventDetails[0][3],
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
+                ])))));
   }
 }

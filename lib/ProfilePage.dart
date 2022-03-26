@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
+import 'Services/AuthenticationService.dart';
+import 'OrganiserEventInfoPage.dart';
 import 'Widget/ProfilePictureWidget.dart';
 
 
 class ProfilePageState extends StatelessWidget {
-  templatemaker templatemkr = templatemaker();
-  
+  TemplateMaker templatemkr = TemplateMaker();
+  final AuthenticationService _auth = AuthenticationService();
+  String username = '';
+  var eventName = "gameshow";
   Widget build(BuildContext context) {
+    username = _auth.getCurrentDisplayName().toString();
     return Scaffold(
       // resizeToAvoidBottomInset: false,
         body: Container(
@@ -38,7 +43,7 @@ class ProfilePageState extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children:<Widget>[
                                       ProfilePicture(),
-                                      Text("Username",  // to be changed to fetching of username
+                                      Text(username,  // to be changed to fetching of username
                                       style: TextStyle(
                                           fontSize: 26,
                                           color: Colors.deepOrange,
@@ -54,9 +59,8 @@ class ProfilePageState extends StatelessWidget {
                                   children: <Widget>[
                                     SizedBox(
                                               width: 150,
-                        
                                               child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: show organized events
+                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPage()));}, // TODO: show organized events
                                                   child: const Text(
                                                     'Organized',
                                                     style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
@@ -85,6 +89,5 @@ class ProfilePageState extends StatelessWidget {
                                 ]
     )
     )]))))));
-
   }
 }

@@ -19,7 +19,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
   String repeatpassword = '';
   String error = '';
 
-  templatemaker templatemkr = templatemaker();
+  TemplateMaker templatemkr = TemplateMaker();
 
   // TextEditingController email_controller = TextEditingController();
   // TextEditingController name_controller = TextEditingController();
@@ -145,13 +145,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                             const SizedBox(
                                                 width: 200.0,
                                                 height: 60.0,
-                                                child: 
-                                                // ElevatedButton(
-                                                //     onPressed: () {}, // TODO: upload photo
-                                                //     child: const Text(
-                                                //       'Upload Facial Picture',
-                                                //       style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
-                                                //     ))
+                                                child:
                                                 Center(child: Text("Please take a photo of yourself"))
                                                     ),
                                                     SizedBox(width:50), // spacing in between upload and camera
@@ -161,8 +155,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                                       child: ElevatedButton.icon(
                                                           onPressed: () {
                                                               Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage(username: name,)));
-                                                          }  // TODO: Implement button to be able to open device camera
-                                                            ,
+                                                          },
                                                           icon: const Icon(Icons.camera_alt, size: 24),
                                                           label: const Text("")),
                                                               )
@@ -193,7 +186,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                               Navigator.pop(context, false);
                                             }
                                           }
-                                        }, // TODO: Create account with details
+                                        },
                                         child: const Text(
                                           'Register',
                                           style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
@@ -206,7 +199,6 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                 ]
                               )
     )]))))));
-    throw UnimplementedError();
   }
 
   String? validateEmail(String? value) {

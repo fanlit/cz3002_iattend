@@ -2,10 +2,8 @@
 
 import 'package:cz3002_iattend/AttendEventPage.dart';
 import 'package:cz3002_iattend/ProfilePage.dart';
-import 'package:cz3002_iattend/globalenv.dart';
 import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
-
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
 
@@ -40,7 +38,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
               width: 262.0,
               height: 52.0,
-              child:ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AttendEventPageState()));}, child: Text("Attend")) //TODO go to page
+              child:ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AttendEventPage()));}, child: Text("Attend")) //TODO go to page
               ),
               SizedBox(height: 30,),
               SizedBox(

@@ -16,7 +16,7 @@ class _LoginPageStateState extends State<LoginPageState> {
   String password = '';
   String error = '';
 
-  templatemaker templatemkr = templatemaker();
+  TemplateMaker templatemkr = TemplateMaker();
 
   // TextEditingController email_controller = TextEditingController();
   // TextEditingController shdw_controller = TextEditingController();
