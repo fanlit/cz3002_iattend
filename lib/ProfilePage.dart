@@ -1,10 +1,11 @@
+import 'package:cz3002_iattend/Models/attendance.dart';
+import 'package:cz3002_iattend/Services/DatabaseServices/AttendanceDataService.dart';
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
 import 'OrganiserEventInfoPage.dart';
 import 'Widget/ProfilePictureWidget.dart';
-
 
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
