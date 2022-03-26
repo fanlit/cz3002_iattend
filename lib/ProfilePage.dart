@@ -1,3 +1,5 @@
+import 'package:cz3002_iattend/Models/attendance.dart';
+import 'package:cz3002_iattend/Services/DatabaseServices/AttendanceDataService.dart';
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
@@ -6,7 +8,7 @@ import 'Widget/ProfilePictureWidget.dart';
 
 class ProfilePageState extends StatelessWidget {
   templatemaker templatemkr = templatemaker();
-  
+
   Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
