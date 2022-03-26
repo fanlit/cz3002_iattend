@@ -3,6 +3,7 @@ import 'package:cz3002_iattend/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
+import 'package:cz3002_iattend/Services/FileImageService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -10,6 +11,7 @@ void main() async {
   setupServices(); //initialize the singleton
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await setApplicationDirectory();
   runApp(const MyApp());
 }
 

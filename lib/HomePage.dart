@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   final AuthenticationService _auth = AuthenticationService();
   String username = '';
-  String imagePath = 'assets/images/tim.jpg'; //todo change file path
+  
 
   @override
   Widget build(BuildContext context) {

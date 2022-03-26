@@ -6,14 +6,15 @@ import 'dart:io';
 
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
-// import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
+import 'package:cz3002_iattend/Services/FileImageService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
-import 'globalenv.dart';
+// import 'globalenv.dart';
 
 class PhotoTakingPage extends StatefulWidget {
-  PhotoTakingPage({ Key? key }) : super(key: key);
+  PhotoTakingPage({ Key? key, required String this.username}) : super(key: key);
+  String username;
 
   @override
   State<PhotoTakingPage> createState() => _PhotoTakingPageState();
@@ -29,6 +30,8 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
   Face? faceToConvert;
   bool imageTaken = false;
   bool faceDeteced = false;
+
+  
 
   void onFaceDetected(CameraImage image, Face? face){
     setState(() {
@@ -94,10 +97,10 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
       floatingActionButton = FloatingActionButton(
         onPressed: (){
           //TODO saving image
-          profilePicturePath = imageFile!.path;
-          // capturedToConvert = _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
-          // print(capturedToConvert);
           userFaceArray= _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
+          saveImage(File(imageFile!.path), widget.username);
+          //return
+          Navigator.pop(context, false); 
         }, child: const Text("Save"));
     }
 

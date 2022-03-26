@@ -142,22 +142,25 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            SizedBox(
+                                            const SizedBox(
                                                 width: 200.0,
                                                 height: 60.0,
-                                                child: ElevatedButton(
-                                                    onPressed: () {}, // TODO: upload photo
-                                                    child: const Text(
-                                                      'Upload Facial Picture',
-                                                      style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
-                                                    ))),
+                                                child: 
+                                                // ElevatedButton(
+                                                //     onPressed: () {}, // TODO: upload photo
+                                                //     child: const Text(
+                                                //       'Upload Facial Picture',
+                                                //       style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
+                                                //     ))
+                                                Center(child: Text("Please take a photo of yourself"))
+                                                    ),
                                                     SizedBox(width:50), // spacing in between upload and camera
                                                     SizedBox( //camera logo
                                                       width: 60.0,
                                                       height: 60.0,
                                                       child: ElevatedButton.icon(
                                                           onPressed: () {
-                                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
+                                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage(username: name,)));
                                                           }  // TODO: Implement button to be able to open device camera
                                                             ,
                                                           icon: const Icon(Icons.camera_alt, size: 24),

@@ -4,20 +4,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:cz3002_iattend/globalenv.dart';
+import 'package:cz3002_iattend/Services/FileImageService.dart';
 
 class ProfilePicture extends StatelessWidget {
   ProfilePicture({ Key? key }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     String defaultImagePath = 'assets/images/tim.jpg'; //default if no user photo
-    String profilePath = profilePicturePath;  //user photo location
-    File profilefile = File(profilePath);
-
+    File profilePicImage = getImage();
     ImageProvider imageProvider;
 
-    if(profilePath!=""){
-      imageProvider = FileImage(profilefile);
+    if(profilePicImage.existsSync()){ //use user picture if it exists 
+      imageProvider = FileImage(profilePicImage); 
     }
     else{
       imageProvider = AssetImage(defaultImagePath);
