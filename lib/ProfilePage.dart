@@ -6,6 +6,7 @@ import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
 import 'OrganiserEventInfoPage.dart';
 import 'Widget/ProfilePictureWidget.dart';
+import 'listView.dart';
 
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
@@ -69,9 +70,14 @@ class ProfilePageState extends StatelessWidget {
                                     SizedBox(width: 10),
                                     SizedBox(
                                               width: 150,
-                        
                                               child: ElevatedButton(
-                                                  onPressed: () {}, // TODO: show attended events
+                                                  onPressed: () {
+                                                     Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => ListExampleClick()),
+                        );
+
+                                                  }, // TODO: show attended events
                                                   child: const Text(
                                                     'Attended',
                                                     style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
