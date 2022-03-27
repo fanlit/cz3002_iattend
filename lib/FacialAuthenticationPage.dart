@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cz3002_iattend/globalenv.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -9,40 +10,45 @@ import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
 
-class FacialDetectionPage extends StatefulWidget {
-  const FacialDetectionPage({ Key? key }) : super(key: key);
-
+class FacialAuthenticationPage extends StatefulWidget {
+  const FacialAuthenticationPage({Key? key}) : super(key: key);
   @override
-  State<FacialDetectionPage> createState() => _FacialDetectionPageState();
+  State<FacialAuthenticationPage> createState() => _FacialAuthenticationPageState();
 }
 
-class _FacialDetectionPageState extends State<FacialDetectionPage> {
+class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
   final CameraService _cameraService = locator<CameraService>();
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
   final MLService _mlService = locator<MLService>();
+  int popCount = 1;
   final log = Logger();
   XFile? imagepath;
   bool imageTaken = false;
   String outputText = "Please show face";
 
-
-  //will be passed to the camera widget so it will be executed when it is streaming images
-  void onFaceDetected(CameraImage image, Face? face){
+  //Will be passed to the camera widget so it will be executed when it is streaming images
+  void onFaceDetected(CameraImage image, Face? face) {
     bool authRes = false;
     setState(() {
-      if(face != null){
-        // outputText="Face detected";
+      if (face != null) {
         predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
         authRes = _mlService.searchResult(predictedData);
-        if(authRes == true){
+        if (authRes == true) {
           _cameraService.cameraController?.pausePreview();
           outputText = "Authenticated!";
-        }
-        else{
+          // wait for 2 seconds before returning to the AttendEventPage to disable the ATTEND button
+          sleep(Duration(seconds: 2));
+          if (popCount == 1) {
+            Navigator.pop(context, authRes);
+            popCount = popCount - 1;
+          }
+        } else {
           outputText = "Not Authenticated";
         }
+      } else {
+        outputText =
+            "Please show your face to the camera for attendance verification";
       }
-      else{outputText="Please show your face to the camera for attendance verification";}
     });
   }
 
@@ -63,26 +69,28 @@ class _FacialDetectionPageState extends State<FacialDetectionPage> {
                   color: Colors.deepOrange,
                   fontFamily: 'DMSans',
                   fontWeight: FontWeight.bold))
-        ]
-    );
+        ]);
 
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
-                      // color: Colors.green,
+                        // color: Colors.green,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const SizedBox(height: 50),
-                              heading,
-                              SizedBox(width: width, height: height * 0.6,child: Center(child: Camera(onFaceDeteced: onFaceDetected))),
-                              const SizedBox(height: 50),
-                              Text(outputText,textAlign: TextAlign.center),
-                            ]))))));
-
+                      const SizedBox(height: 50),
+                      heading,
+                      SizedBox(
+                          width: width,
+                          height: height * 0.6,
+                          child: Center(
+                              child: Camera(onFaceDeteced: onFaceDetected))),
+                      const SizedBox(height: 50),
+                      Text(outputText, textAlign: TextAlign.center),
+                    ]))))));
   }
 }

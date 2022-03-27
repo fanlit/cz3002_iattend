@@ -55,6 +55,7 @@ class EventDataService
         doc.get('joiningCode').toString() ?? '',
         doc.get('start'),
         doc.get('end'),
+        // TODO: Description?
       );
     }).toList();
      */
@@ -72,6 +73,7 @@ class EventDataService
         doc.get('joiningCode').toString() ?? '',
         doc.get('start'),
         doc.get('end'),
+        // TODO: Description?
       );
     }).toList();
   }
