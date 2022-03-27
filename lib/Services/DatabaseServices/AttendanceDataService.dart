@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cz3002_iattend/Models/attendance.dart';
-import 'package:cz3002_iattend/Models/event.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:cz3002_iattend/Models/iAttendUser.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AttendanceDataService {
 
-  final String attendanceID;
+  //final String attendanceID;
 
-  AttendanceDataService(this.attendanceID);
+  AttendanceDataService();
 
   //Collection Reference
   final CollectionReference attendanceCollection = FirebaseFirestore.instance
@@ -17,37 +14,68 @@ class AttendanceDataService {
       .collection('events');
 
   //Create data upon signup/existing user updates data
-  Future createAttendanceData(String eventID, String attendeeID,
-      DateTime signInTime, DateTime signOutTime) async
+  Future createAttendanceData(String attendeeID, String joiningCode) async
   {
+    QuerySnapshot event = await eventCollection.where('joiningCode', isEqualTo: joiningCode).get();
+    String eventID = event.docs[0].id;
     var toAdd = {
       'eventID': eventID,
-      'attendeeID': attendeeID,
-      'signInTime': signInTime,
-      'signOutTime': signOutTime
+      'attendeeID': FirebaseAuth.instance.currentUser?.uid,
+      'signInTime': Timestamp.now()
     };
 
     attendanceCollection.add(toAdd);
   }
 
-  Future<List<Attendance>> getUserAttendanceRecord(String attendeeID) async {
-    final QuerySnapshot results = await attendanceCollection.where(
-        'attendeeID', isEqualTo: attendeeID).get();
+  Future<Map<String, Timestamp>> getUserAttendanceRecord() async {
+    final QuerySnapshot results = await attendanceCollection.where('attendeeID', isEqualTo: FirebaseAuth.instance.currentUser?.uid).get();
+    Map<String, Timestamp> output = {};
+    for (var doc in results.docs)
+    {
+      DocumentReference documentReference = eventCollection.doc(doc.get('eventID').toString());
+      Timestamp signInTime = doc.get('signInTime');
+      documentReference.get().then((snapshot)
+      {
+        String eventName = snapshot.get('eventName');
+        output[eventName] = signInTime;
+      });
+    }
+     return output;
+    /*
     return results.docs.map((doc) {
-      DocumentReference documentReference = eventCollection.doc(
-          doc.get('eventID').toString());
+      DocumentReference documentReference = eventCollection.doc(doc.get('eventID').toString());
       String eventName = "";
       documentReference.get().then((snapshot) {
         eventName = snapshot.get('eventName');
       });
 
+
+
       return Attendance(
         doc.get('eventID').toString() ?? '',
         eventName,
         doc.get('attendeeID').toString() ?? '',
-        doc.get('signInTime'),
-        doc.get('signOutTime'),
+        doc.get('signInTime')
       );
     }).toList();
+
+     */
+  }
+
+  Future<Map<String, Timestamp>> getAttendanceListByEventID(String eventID) async
+  {
+    final QuerySnapshot results = await attendanceCollection.where('eventID', isEqualTo: eventID).get();
+    Map<String, Timestamp> output = {};
+    for (var doc in results.docs)
+    {
+      DocumentReference documentReference = eventCollection.doc(doc.get('eventID').toString());
+      Timestamp signInTime = doc.get('signInTime');
+      documentReference.get().then((snapshot)
+      {
+        String eventName = snapshot.get('eventName');
+        output[eventName] = signInTime;
+      });
+    }
+    return output;
   }
 }

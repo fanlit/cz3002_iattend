@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Attendance
 {
   final String eventID;
   final String eventName;
   final String attendeeID;
-  final DateTime signInTime;
-  final DateTime signOutTime;
+  final Timestamp signInTime;
 
-  Attendance(this.eventID,this.eventName, this.attendeeID, this.signInTime, this.signOutTime);
+  Attendance(this.eventID,this.eventName, this.attendeeID, this.signInTime);
 }
