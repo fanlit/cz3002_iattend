@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '';
+import 'Services/EventRegistrationService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
@@ -10,11 +10,10 @@ class OrganizeEventPage extends StatefulWidget {
 
 class _OrganizeEventPageState extends State<OrganizeEventPage> {
   TemplateMaker templatemkr = TemplateMaker();
+  EventRegistrationService registrationMngr = EventRegistrationService();
   TextEditingController eventName_controller = TextEditingController();
   TextEditingController venue_controller = TextEditingController();
-  TextEditingController des_controller = TextEditingController();
-
-  //TODO: Save event date and time!
+  TextEditingController descp_controller = TextEditingController();
   DateTime eventStartDate = DateTime.now();
   TimeOfDay eventStartTime = TimeOfDay.now();
   DateTime eventEndDate = DateTime.now();
@@ -49,7 +48,7 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                   height:
                                       40), //spacing n between logo and fields
                               Container(
-                                  color: Color.fromRGBO(
+                                  color: const Color.fromRGBO(
                                       199, 199, 199, 1), // background color
                                   height: 470,
                                   width: 350,
@@ -63,13 +62,13 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                             "Event Name",
                                             "Event Name",
                                             eventName_controller,
-                                            Color.fromRGBO(255, 255, 255, 1)),
+                                            const Color.fromRGBO(255, 255, 255, 1)),
                                         const SizedBox(height: 30),
                                         templatemkr.TextfieldwithBG(
                                             "Venue",
                                             "Venue",
                                             venue_controller,
-                                            Color.fromRGBO(255, 255, 255, 1)),
+                                            const Color.fromRGBO(255, 255, 255, 1)),
                                         const SizedBox(height: 30),
 
                                         // Configure event start and end DateTime
@@ -87,9 +86,9 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                                       fontFamily: 'DMSans',
                                                       color:
                                                           Colors.deepOrange)),
-                                              trailing: Icon(
+                                              trailing: const Icon(
                                                   Icons.keyboard_arrow_down),
-                                              onTap: pickEventDate,
+                                              onTap: pickEventStartDate,
                                             ),
                                             ListTile(
                                                 title: Text(
@@ -99,9 +98,9 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                                         fontFamily: 'DMSans',
                                                         color:
                                                             Colors.deepOrange)),
-                                                trailing: Icon(
+                                                trailing: const Icon(
                                                     Icons.keyboard_arrow_down),
-                                                onTap: pickEventTime),
+                                                onTap: pickEventStartTime),
                                           ],
                                         ),
                                         const SizedBox(height: 10),
@@ -121,9 +120,9 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                                       fontFamily: 'DMSans',
                                                       color:
                                                           Colors.deepOrange)),
-                                              trailing: Icon(
+                                              trailing: const Icon(
                                                   Icons.keyboard_arrow_down),
-                                              onTap: pickEventDate,
+                                              onTap: pickEventEndDate,
                                             ),
                                             ListTile(
                                                 title: Text(
@@ -133,9 +132,9 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                                         fontFamily: 'DMSans',
                                                         color:
                                                             Colors.deepOrange)),
-                                                trailing: Icon(
+                                                trailing: const Icon(
                                                     Icons.keyboard_arrow_down),
-                                                onTap: pickEventTime),
+                                                onTap: pickEventEndTime),
                                           ],
                                         ),
 
@@ -148,11 +147,11 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                         Container(
                                             height: 120,
                                             width: 350,
-                                            color: Color.fromRGBO(
+                                            color: const Color.fromRGBO(
                                                 255, 255, 255, 1),
                                             child: TextField(
-                                              controller: des_controller,
-                                              decoration: InputDecoration(
+                                              controller: descp_controller,
+                                              decoration: const InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   hintText: 'Description'),
                                               maxLines: 4,
@@ -177,15 +176,14 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                           children: <Widget>[
                                             templatemkr.BackButton(
                                                 'back', context),
-                                            SizedBox(width: 20),
+                                            const SizedBox(width: 20),
                                             SizedBox(
                                                 width: 200.0,
                                                 height: 52.0,
                                                 child: ElevatedButton(
                                                     onPressed:
-                                                        () {
-
-                                                        }, // TODO: Create event logic: eventcode generator and save event to backend
+                                                        () { registrationMngr.registerEvent(context, eventName_controller.text, venue_controller.text ,descp_controller.text, eventStartDate, eventEndDate);
+                                                        },
                                                     child: const Text(
                                                       'Create Event',
                                                       style: TextStyle(
@@ -198,7 +196,7 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                             ]))))));
   }
 
-  pickEventDate() async {
+  pickEventStartDate() async {
     DateTime? date = await showDatePicker(
         context: context,
         initialDate: eventStartDate,
@@ -212,12 +210,36 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
     }
   }
 
-  pickEventTime() async {
+  pickEventStartTime() async {
     TimeOfDay? t =
         await showTimePicker(context: context, initialTime: eventStartTime);
     if (t != null) {
       setState(() {
         eventStartTime = t;
+      });
+    }
+  }
+
+  pickEventEndDate() async {
+    DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: eventEndDate,
+        firstDate: DateTime(DateTime.now().year - 10),
+        lastDate: DateTime(DateTime.now().year + 10));
+
+    if (date != null) {
+      setState(() {
+        eventEndDate = date;
+      });
+    }
+  }
+
+  pickEventEndTime() async {
+    TimeOfDay? t =
+    await showTimePicker(context: context, initialTime: eventEndTime);
+    if (t != null) {
+      setState(() {
+        eventEndTime = t;
       });
     }
   }

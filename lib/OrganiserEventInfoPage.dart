@@ -3,14 +3,8 @@ import 'OrganiserEventAttendeePage.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
-class OrganiserEventInfoPage extends StatefulWidget{
-  const OrganiserEventInfoPage({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _OrganiserEventInfoPageState();
-}
-
-class _OrganiserEventInfoPageState extends State<OrganiserEventInfoPage>{
+class OrganiserEventInfoPageState extends StatelessWidget{
   TemplateMaker templatemkr = TemplateMaker();
   var eventName = "gameshow 1"; //dummy data
   // TODO: pass event name from profile page to here

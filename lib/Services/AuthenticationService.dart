@@ -1,4 +1,4 @@
-import 'package:cz3002_iattend/Models/iAttendUser.dart';
+// import 'package:cz3002_iattend/Models/iAttendUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService{
@@ -57,5 +57,8 @@ class AuthenticationService{
   // current user display name
   String? getCurrentDisplayName() {
     return _auth.currentUser!.displayName;
+  }
+  String? getCurrentDisplayEmail(){
+    return _auth.currentUser!.email;
   }
 }

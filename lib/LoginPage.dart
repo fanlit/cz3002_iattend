@@ -115,7 +115,6 @@ class _LoginPageStateState extends State<LoginPageState> {
                                                   height: 52.0,
                                                   child: ElevatedButton(
                                                       onPressed: () async {
-                                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(username: 'tim',)));
                                                         if (_formKey.currentState!.validate()) {
                                                           dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                                           if (result == null) {
@@ -126,8 +125,7 @@ class _LoginPageStateState extends State<LoginPageState> {
                                                             Navigator.pop(context, false);
                                                           }
                                                         }
-                                                      }, // TODO: Implement email and password checking function and create Homepage
-
+                                                      },
                                                       child: const Text(
                                                         'Login',
                                                         style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),

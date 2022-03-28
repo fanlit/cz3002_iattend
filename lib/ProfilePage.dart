@@ -1,5 +1,3 @@
-import 'package:cz3002_iattend/Models/attendance.dart';
-import 'package:cz3002_iattend/Services/DatabaseServices/AttendanceDataService.dart';
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
@@ -46,7 +44,7 @@ class ProfilePageState extends StatelessWidget {
                                   children:<Widget>[
                                       ProfilePicture(),
                                       Text(username,  // to be changed to fetching of username
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 26,
                                           color: Colors.deepOrange,
                                           fontFamily: 'DMSans',
@@ -62,7 +60,7 @@ class ProfilePageState extends StatelessWidget {
                                     SizedBox(
                                               width: 150,
                                               child: ElevatedButton(
-                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPage()));}, // TODO: show organized events
+                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPageState()));}, // TODO: show organized events
                                                   child: const Text(
                                                     'Organized',
                                                     style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),

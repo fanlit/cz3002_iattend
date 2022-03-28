@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'OrganiserEventInfoPage.dart';
+// import 'Services/DatabaseServices/EventDataService.dart';
+// import 'globalenv.dart';
+// import 'package:cz3002_iattend/Models/event.dart';
 
 
 class ListExampleClick extends StatelessWidget {
@@ -40,7 +43,10 @@ class ListLayout extends StatefulWidget {
 }
 
 class _ListViewClickListenerState extends State<ListLayout> {
+
   final List<String> _myDataList=['event1','event2','event 3','event 4'];
+  // EventDataService eventMngr = EventDataService();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -51,7 +57,7 @@ class _ListViewClickListenerState extends State<ListLayout> {
           .map((data) => ListTile(
         leading: Icon(Icons.circle),
         title: Text(data),
-        onTap: () {Navigator.push(context,MaterialPageRoute(builder: (context)=> OrganiserEventInfoPage()
+        onTap: () {Navigator.push(context,MaterialPageRoute(builder: (context)=> OrganiserEventInfoPageState()
         )
         );
         }
@@ -60,4 +66,12 @@ class _ListViewClickListenerState extends State<ListLayout> {
 
     );
   }
+
+  // Initialize eventList by retrieving all the required event data
+  // List<Event> initializeItems() async{
+  //   Future<List<Event>> _eventList = eventMngr.getEventByCreatorEmail(email);
+  //   List<Event> eventList = await _eventList;
+  //   return eventList;
+  // }
+
 }

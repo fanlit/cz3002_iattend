@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Services/DatabaseServices/EventDataService.dart';
-import 'Models/event.dart';
 import 'globalenv.dart';
 
 class TemplateMaker {
@@ -132,7 +130,7 @@ class TemplateMaker {
         ]);
   }
 
-  Container PopulateItems() {
+  Container PopulateEventAttendees() {
     // 1 = PopulateAttendee, 2 = Populate Organised, 3= Populate Organised
     // Dummy data
     var attendees = [
@@ -163,14 +161,9 @@ class TemplateMaker {
 
   Container EventDetailsContainer(var eventCode) {
     //Dummy data
-    var eventDetails = [
-      ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!"],
-      ["gameshow 2", "NTU Auditorium 2", "27/3/2022, 13:40", "This is dummy event data.\nPlease implement the function to aquire the data from backend!!"],
-      ["gameshow 3", "NTU Auditorium 3", "28/3/2022, 13:50", "This is dummy event data.\nPlease implement the function to aquire the data from backend!!!"]
-    ];
+    var eventDetails = ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!", "12356"];
 
 
-    // TODO: Implement EventCode generator. For now, code line below not to be used until event creation works
     // EventDataService eventserver = EventDataService(eventCode);
     // Can return as a list similar to the above?
     // Event eventDetails = eventserver.getEventById(eventCode) as Event;
@@ -200,7 +193,29 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display event name here!
-                              Expanded(child: Text(eventDetails[0][0],
+                              Expanded(child: Text(eventDetails[0],
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
+
+                          const SizedBox(height: 10),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width: 120, child: Text("Code: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display Venue name here!
+                              Expanded(child: Text(eventDetails[4],
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -223,7 +238,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display Venue name here!
-                              Expanded(child: Text(eventDetails[0][1],
+                              Expanded(child: Text(eventDetails[1],
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -246,7 +261,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display event date here!
-                              Expanded(child: Text(eventDetails[0][2],
+                              Expanded(child: Text(eventDetails[2],
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -270,7 +285,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display Description here!
-                              Expanded(child: Text(eventDetails[0][3],
+                              Expanded(child: Text(eventDetails[3],
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -279,5 +294,32 @@ class TemplateMaker {
                             ],
                           ),
                 ])))));
+  }
+
+  Future<void> registeredDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registered Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Thank you for registering an Event!'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

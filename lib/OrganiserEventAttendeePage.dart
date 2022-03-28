@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Services/AuthenticationService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
@@ -73,7 +72,7 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
                                             )
                                           ],
                                         ),
-                                        templatemkr.PopulateItems(),
+                                        templatemkr.PopulateEventAttendees(),
                                       ])),
                               Container(
                                   height: 100,

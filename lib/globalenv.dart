@@ -7,3 +7,5 @@ double toppadding = 0;
 late List predictedData;
 late List userFaceArray;
 String applicationDirectory = "";
+String username = "";
+String email = "";

@@ -6,18 +6,20 @@ import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
+import 'globalenv.dart';
 
 
 class HomePage extends StatelessWidget {
   // HomePage({Key? key, required String this.username}) : super(key: key);
   HomePage({Key? key}) : super(key: key);
   final AuthenticationService _auth = AuthenticationService();
-  String username = '';
+  // String username = '';
   
 
   @override
   Widget build(BuildContext context) {
     username = _auth.getCurrentDisplayName().toString();
+    email = _auth.getCurrentDisplayEmail().toString();
     return Scaffold(
       body: Column(
         children: <Widget>[

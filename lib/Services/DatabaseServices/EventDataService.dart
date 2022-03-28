@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cz3002_iattend/Models/event.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:cz3002_iattend/Models/iAttendUser.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:cz3002_iattend/Models/iAttendUser.dart';
 
 class EventDataService
 {
@@ -13,11 +13,13 @@ class EventDataService
   final CollectionReference eventCollection = FirebaseFirestore.instance.collection('events');
 
 
-  Future createEventData(String eventName, String creator, String description, String joiningCode, DateTime start, DateTime end) async
+  Future createEventData(String eventName, String venue, String creator, String email, String description, String joiningCode, DateTime start, DateTime end) async
   {
     return await eventCollection.add(
         {'eventName': eventName,
+          'venue': venue,
           'creator': creator,
+          'creatorEmail': email,
           'description': description,
           'joiningCode': joiningCode,
           'start': start,
@@ -55,17 +57,18 @@ class EventDataService
         doc.get('joiningCode').toString() ?? '',
         doc.get('start'),
         doc.get('end'),
-        // TODO: Description?
+
       );
     }).toList();
      */
     return _EventListFromSnapshot(results);
     }
 
-  //Event list from snapshot
-  List<Event> _EventListFromSnapshot(QuerySnapshot snapshot)
-  {
-    return snapshot.docs.map((doc){
+  Future<List<Event>> getEventByCreatorEmail(String creatorEmail)
+  async {
+    final QuerySnapshot results = await eventCollection.where('creator', isEqualTo: creatorEmail).get();
+    /*
+    return results.docs.map((doc){
       return Event(
         doc.get('eventName').toString() ?? '',
         doc.get('creator').toString() ?? '',
@@ -73,7 +76,27 @@ class EventDataService
         doc.get('joiningCode').toString() ?? '',
         doc.get('start'),
         doc.get('end'),
-        // TODO: Description?
+
+      );
+    }).toList();
+     */
+    return _EventListFromSnapshot(results);
+  }
+
+
+  //Event list from snapshot
+  List<Event> _EventListFromSnapshot(QuerySnapshot snapshot)
+  {
+    return snapshot.docs.map((doc){
+      return Event(
+        doc.get('eventName').toString() ?? '',
+        doc.get('venue').toString() ?? '',
+        doc.get('creator').toString() ?? '',
+        doc.get('creatorEmail').toString() ?? '',
+        doc.get('description').toString() ?? '',
+        doc.get('joiningCode').toString() ?? '',
+        doc.get('start'),
+        doc.get('end'),
       );
     }).toList();
   }
