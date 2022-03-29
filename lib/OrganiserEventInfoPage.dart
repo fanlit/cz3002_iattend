@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'OrganiserEventAttendeePage.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
+import 'Models/event.dart';
+
+class OrganiserEventInfoPage extends StatefulWidget{
+  OrganiserEventInfoPage({ Key? key, required Event this.eventItem}) : super(key: key);
+  Event eventItem;
+
+  @override
+  State<OrganiserEventInfoPage> createState() => _OrganiserEventInfoPageState();
+}
 
 
-class OrganiserEventInfoPageState extends StatelessWidget{
+class _OrganiserEventInfoPageState extends State<OrganiserEventInfoPage>{
+  // var eventName = "gameshow 1"; //dummy data
   TemplateMaker templatemkr = TemplateMaker();
-  var eventName = "gameshow 1"; //dummy data
   // TODO: pass event name from profile page to here
 
   @override
@@ -37,7 +46,7 @@ class OrganiserEventInfoPageState extends StatelessWidget{
                                 height: 40), //spacing n between logo and fields
 
                             // replace the widgets below with the function
-                            templatemkr.EventDetailsContainer(eventName),
+                            templatemkr.EventDetailsContainer(widget.eventItem),
 
                             Container(
                                 child: Column(children: <Widget>[
@@ -58,7 +67,7 @@ class OrganiserEventInfoPageState extends StatelessWidget{
                                                 style: ElevatedButton.styleFrom(
                                                     onSurface: Colors.deepOrange),
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventAttendeePage(eventName: eventName)));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventAttendeePage(eventCode: widget.eventItem.joiningCode)));
                                                 },
                                                 child: const Text(
                                                   'Participants',

@@ -32,168 +32,163 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const SizedBox(height: 50),
-                              Row(
+                      const SizedBox(height: 50),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text("iAttend",
+                                style: TextStyle(
+                                    fontSize: fonttitle,
+                                    color: Colors.deepOrange,
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                      const SizedBox(
+                          height: 40), //spacing n between logo and fields
+                      Container(
+                          color: const Color.fromRGBO(
+                              199, 199, 199, 1), // background color
+                          height: 470,
+                          width: 350,
+                          child: SingleChildScrollView(
+                              child: Container(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                templatemkr.TextfieldwithBG(
+                                    "Event Name",
+                                    "Event Name",
+                                    eventName_controller,
+                                    const Color.fromRGBO(255, 255, 255, 1)),
+                                const SizedBox(height: 30),
+                                templatemkr.TextfieldwithBG(
+                                    "Venue",
+                                    "Venue",
+                                    venue_controller,
+                                    const Color.fromRGBO(255, 255, 255, 1)),
+                                const SizedBox(height: 30),
+
+                                // Configure event start and end DateTime
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Text("iAttend",
-                                        style: TextStyle(
-                                            fontSize: fonttitle,
-                                            color: Colors.deepOrange,
-                                            fontFamily: 'DMSans',
-                                            fontWeight: FontWeight.bold))
-                                  ]),
-                              const SizedBox(
-                                  height:
-                                      40), //spacing n between logo and fields
-                              Container(
-                                  color: const Color.fromRGBO(
-                                      199, 199, 199, 1), // background color
-                                  height: 470,
-                                  width: 350,
-                                  child: SingleChildScrollView(
-                                      child: Container(
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                        templatemkr.TextfieldwithBG(
-                                            "Event Name",
-                                            "Event Name",
-                                            eventName_controller,
-                                            const Color.fromRGBO(255, 255, 255, 1)),
-                                        const SizedBox(height: 30),
-                                        templatemkr.TextfieldwithBG(
-                                            "Venue",
-                                            "Venue",
-                                            venue_controller,
-                                            const Color.fromRGBO(255, 255, 255, 1)),
-                                        const SizedBox(height: 30),
+                                    ListTile(
+                                      title: Text(
+                                          "Event Start Date: ${eventStartDate.day}, ${eventStartDate.month}, ${eventStartDate.year}",
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'DMSans',
+                                              color: Colors.deepOrange)),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: pickEventStartDate,
+                                    ),
+                                    ListTile(
+                                        title: Text(
+                                            "Event Start Time: ${eventStartTime.hour}:${eventStartTime.minute}",
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'DMSans',
+                                                color: Colors.deepOrange)),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: pickEventStartTime),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
 
-                                        // Configure event start and end DateTime
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            ListTile(
-                                              title: Text(
-                                                  "Event Start Date: ${eventStartDate.day}, ${eventStartDate.month}, ${eventStartDate.year}",
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      fontFamily: 'DMSans',
-                                                      color:
-                                                          Colors.deepOrange)),
-                                              trailing: const Icon(
-                                                  Icons.keyboard_arrow_down),
-                                              onTap: pickEventStartDate,
-                                            ),
-                                            ListTile(
-                                                title: Text(
-                                                    "Event Start Time: ${eventStartTime.hour}:${eventStartTime.minute}",
-                                                    style: const TextStyle(
-                                                        fontSize: 20,
-                                                        fontFamily: 'DMSans',
-                                                        color:
-                                                            Colors.deepOrange)),
-                                                trailing: const Icon(
-                                                    Icons.keyboard_arrow_down),
-                                                onTap: pickEventStartTime),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 10),
+                                // Configure event end DateTime
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text(
+                                          "Event End Date: ${eventEndDate.day}, ${eventEndDate.month}, ${eventEndDate.year}",
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'DMSans',
+                                              color: Colors.deepOrange)),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: pickEventEndDate,
+                                    ),
+                                    ListTile(
+                                        title: Text(
+                                            "Event End Time: ${eventEndTime.hour}:${eventEndTime.minute}",
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'DMSans',
+                                                color: Colors.deepOrange)),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: pickEventEndTime),
+                                  ],
+                                ),
 
-                                        // Configure event end DateTime
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            ListTile(
-                                              title: Text(
-                                                  "Event End Date: ${eventEndDate.day}, ${eventEndDate.month}, ${eventEndDate.year}",
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      fontFamily: 'DMSans',
-                                                      color:
-                                                          Colors.deepOrange)),
-                                              trailing: const Icon(
-                                                  Icons.keyboard_arrow_down),
-                                              onTap: pickEventEndDate,
-                                            ),
-                                            ListTile(
-                                                title: Text(
-                                                    "Event End Time: ${eventEndTime.hour}:${eventEndTime.minute}",
-                                                    style: const TextStyle(
-                                                        fontSize: 20,
-                                                        fontFamily: 'DMSans',
-                                                        color:
-                                                            Colors.deepOrange)),
-                                                trailing: const Icon(
-                                                    Icons.keyboard_arrow_down),
-                                                onTap: pickEventEndTime),
-                                          ],
-                                        ),
+                                const SizedBox(height: 10),
+                                Text("Description",
+                                    style: TextStyle(
+                                        fontSize: fontregular,
+                                        color: Colors.deepOrange,
+                                        fontFamily: 'DMSans')),
+                                Container(
+                                    height: 120,
+                                    width: 350,
+                                    color:
+                                        const Color.fromRGBO(255, 255, 255, 1),
+                                    child: TextField(
+                                      controller: descp_controller,
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Description'),
+                                      maxLines: 4,
+                                      minLines: 4,
+                                    )),
 
-                                        const SizedBox(height: 10),
-                                        Text("Description",
-                                            style: TextStyle(
-                                                fontSize: fontregular,
-                                                color: Colors.deepOrange,
-                                                fontFamily: 'DMSans')),
-                                        Container(
-                                            height: 120,
-                                            width: 350,
-                                            color: const Color.fromRGBO(
-                                                255, 255, 255, 1),
-                                            child: TextField(
-                                              controller: descp_controller,
-                                              decoration: const InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  hintText: 'Description'),
-                                              maxLines: 4,
-                                              minLines: 4,
-                                            )),
+                                const SizedBox(height: 10),
+                              ])))),
 
-                                        const SizedBox(height: 10),
-                                      ])))),
-
-                              Container(
-                                  height: 100,
-                                  width: 300,
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            templatemkr.BackButton(
-                                                'back', context),
-                                            const SizedBox(width: 20),
-                                            SizedBox(
-                                                width: 200.0,
-                                                height: 52.0,
-                                                child: ElevatedButton(
-                                                    onPressed:
-                                                        () { registrationMngr.registerEvent(context, eventName_controller.text, venue_controller.text ,descp_controller.text, eventStartDate, eventEndDate);
-                                                        },
-                                                    child: const Text(
-                                                      'Create Event',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontFamily: 'DMSans'),
-                                                    )))
-                                          ],
-                                        )
-                                      ]))
-                            ]))))));
+                      Container(
+                          height: 100,
+                          width: 300,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    templatemkr.BackButton('back', context),
+                                    const SizedBox(width: 20),
+                                    SizedBox(
+                                        width: 200.0,
+                                        height: 52.0,
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              registrationMngr.registerEvent(
+                                                  context,
+                                                  eventName_controller.text,
+                                                  venue_controller.text,
+                                                  descp_controller.text,
+                                                  eventStartDate,
+                                                  eventEndDate,
+                                                  eventStartTime,
+                                                  eventEndTime);
+                                            },
+                                            child: const Text(
+                                              'Create Event',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'DMSans'),
+                                            )))
+                                  ],
+                                )
+                              ]))
+                    ]))))));
   }
 
   pickEventStartDate() async {
@@ -236,7 +231,7 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
 
   pickEventEndTime() async {
     TimeOfDay? t =
-    await showTimePicker(context: context, initialTime: eventEndTime);
+        await showTimePicker(context: context, initialTime: eventEndTime);
     if (t != null) {
       setState(() {
         eventEndTime = t;

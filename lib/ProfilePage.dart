@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
-import 'OrganiserEventInfoPage.dart';
 import 'Widget/ProfilePictureWidget.dart';
-import 'listView.dart';
+import 'OrganisedListView.dart';
 
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
@@ -60,9 +59,11 @@ class ProfilePageState extends StatelessWidget {
                                     SizedBox(
                                               width: 150,
                                               child: ElevatedButton(
-                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPageState()));}, // TODO: show organized events
+                                                  onPressed: () {
+                                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPage()));
+                                                    }, // TODO: show organized events
                                                   child: const Text(
-                                                    'Organized',
+                                                    'Attended',
                                                     style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
                                                   ))),
                                     SizedBox(width: 10),
@@ -77,7 +78,7 @@ class ProfilePageState extends StatelessWidget {
 
                                                   }, // TODO: show attended events
                                                   child: const Text(
-                                                    'Attended',
+                                                    'Organised',
                                                     style: TextStyle(fontSize: 15, fontFamily: 'DMSans'),
                                                   ))),
                                   ],

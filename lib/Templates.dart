@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'globalenv.dart';
+import 'Models/event.dart';
 
 class TemplateMaker {
 
@@ -159,9 +160,11 @@ class TemplateMaker {
             ])));
   }
 
-  Container EventDetailsContainer(var eventCode) {
+  Container EventDetailsContainer(Event eventItem) {
+    print("in templatemkr");
+    print(eventItem.eventName);
     //Dummy data
-    var eventDetails = ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!", "12356"];
+    // var eventDetails = ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!", "12356"];
 
 
     // EventDataService eventserver = EventDataService(eventCode);
@@ -193,7 +196,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display event name here!
-                              Expanded(child: Text(eventDetails[0],
+                              Expanded(child: Text(eventItem.eventName,
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -204,6 +207,7 @@ class TemplateMaker {
 
                           const SizedBox(height: 10),
 
+                          // Row to display event code
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -215,7 +219,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display Venue name here!
-                              Expanded(child: Text(eventDetails[4],
+                              Expanded(child: Text(eventItem.joiningCode,
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -238,7 +242,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display Venue name here!
-                              Expanded(child: Text(eventDetails[1],
+                              Expanded(child: Text(eventItem.venue,
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -249,11 +253,11 @@ class TemplateMaker {
 
                           const SizedBox(height: 10),
 
-                          //Row to display event date and time
+                          //Row to display event start date
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              const SizedBox(width:120 ,child: Text("DateTime: ",
+                              const SizedBox(width:120 ,child: Text("Start: ",
                                   style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -261,7 +265,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display event date here!
-                              Expanded(child: Text(eventDetails[2],
+                              Expanded(child: Text(eventItem.start.toString(),
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,
@@ -271,6 +275,27 @@ class TemplateMaker {
                           ),
 
                           const SizedBox(height: 10),
+
+                          // Row to display event end date
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(width:120 ,child: Text("End: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+
+                              // Display event date here!
+                              Expanded(child: Text(eventItem.end.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold))),
+                            ],
+                          ),
 
                           // Row to display event description
                           Row(
@@ -285,7 +310,7 @@ class TemplateMaker {
                                       fontWeight: FontWeight.bold))),
 
                               // Display Description here!
-                              Expanded(child: Text(eventDetails[3],
+                              Expanded(child: Text(eventItem.description,
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.deepOrange,

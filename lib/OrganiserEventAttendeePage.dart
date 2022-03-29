@@ -3,14 +3,16 @@ import 'Templates.dart';
 import 'globalenv.dart';
 
 class OrganiserEventAttendeePage extends StatefulWidget {
-  late String eventName;
-  OrganiserEventAttendeePage({Key? key, required this.eventName}) : super(key: key);
+  late String eventCode;
+  OrganiserEventAttendeePage({Key? key, required this.eventCode}) : super(key: key);
   @override
   State<OrganiserEventAttendeePage> createState() => _OrganiserEventAttendeePageState();
 }
 
 class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage> {
   TemplateMaker templatemkr = TemplateMaker();
+  //TODO: make a function to return the participant list without the Future encapsulation
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +52,7 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
                                       children: <Widget>[
                                         SizedBox(height: 10),
                                         Text(
-                                          "" + widget.eventName,
+                                          "" + widget.eventCode,
                                           style: const TextStyle(
                                               fontSize: 30,
                                               color: Colors.deepOrange,

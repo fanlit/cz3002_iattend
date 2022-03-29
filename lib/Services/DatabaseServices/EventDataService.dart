@@ -64,9 +64,8 @@ class EventDataService
     return _EventListFromSnapshot(results);
     }
 
-  Future<List<Event>> getEventByCreatorEmail(String creatorEmail)
-  async {
-    final QuerySnapshot results = await eventCollection.where('creator', isEqualTo: creatorEmail).get();
+  Future<List<Event>> getEventByCreatorEmail(String creatorEmail) async {
+    final QuerySnapshot results = await eventCollection.where('creatorEmail', isEqualTo: creatorEmail).get();
     /*
     return results.docs.map((doc){
       return Event(
@@ -76,7 +75,6 @@ class EventDataService
         doc.get('joiningCode').toString() ?? '',
         doc.get('start'),
         doc.get('end'),
-
       );
     }).toList();
      */
@@ -89,14 +87,14 @@ class EventDataService
   {
     return snapshot.docs.map((doc){
       return Event(
-        doc.get('eventName').toString() ?? '',
-        doc.get('venue').toString() ?? '',
-        doc.get('creator').toString() ?? '',
-        doc.get('creatorEmail').toString() ?? '',
-        doc.get('description').toString() ?? '',
-        doc.get('joiningCode').toString() ?? '',
-        doc.get('start'),
-        doc.get('end'),
+        doc.get('eventName').toString(),
+        doc.get('venue').toString(),
+        doc.get('creator').toString(),
+        doc.get('creatorEmail').toString(),
+        doc.get('description').toString(),
+        doc.get('joiningCode').toString(),
+        doc.get('start').toDate(),
+        doc.get('end').toDate(),
       );
     }).toList();
   }

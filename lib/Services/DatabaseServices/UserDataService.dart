@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../Models/iAttendUser.dart';
+// import '../../Models/iAttendUser.dart';
 
 class UserDataService
 {
@@ -36,26 +36,7 @@ class UserDataService
     return querySnapshot.docs[0]['email'];
   }
 
-  Future<List<double>> getUserFaceArray(String uid) async {
-    QuerySnapshot querySnapshot = await userCollection
-        .where('uid', isEqualTo: uid)
-        .get();
-    return querySnapshot.docs[0]['userFaceArray'];
-  }
-
-  // //User list from snapshot
-  // List<iAttendUser> _UserListFromSnapshot(QuerySnapshot snapshot)
-  // {
-  //   return snapshot.docs.map((doc){
-  //     return iAttendUser(
-  //       doc.get('email').toString(),
-  //       doc.get('name').toString(),
-  //       doc.get('userFaceArray')
-  //     );
-  //   }).toList();
-  // }
-  //
-  // //Get Users Stream
+  //Get Users Stream
   // Stream<List<iAttendUser>> get users
   // {
   //   return userCollection.snapshots().map(_UserListFromSnapshot);
