@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cz3002_iattend/globalenv.dart';
 import 'package:cz3002_iattend/Services/FileImageService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePicture extends StatelessWidget {
   ProfilePicture({ Key? key }) : super(key: key);
@@ -12,7 +13,7 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     String defaultImagePath = 'assets/images/tim.jpg'; //default if no user photo
-    File profilePicImage = getImage();
+    File profilePicImage = getImage(FirebaseAuth.instance.currentUser!.uid);
     ImageProvider imageProvider;
 
     if(profilePicImage.existsSync()){ //use user picture if it exists 

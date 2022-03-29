@@ -1,9 +1,16 @@
+import 'package:cz3002_iattend/Services/DatabaseServices/UserDataService.dart';
 import 'package:flutter/material.dart';
 import 'Services/AuthenticationService.dart';
+import 'Services/FileImageService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'PhotoTakingPage.dart';
-
+import 'dart:io';
+import 'Models/iAttendUser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Services/DatabaseServices/UserDataService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:camera/camera.dart';
 
 class RegisterPageState extends StatefulWidget {
   @override
@@ -12,19 +19,27 @@ class RegisterPageState extends StatefulWidget {
 
 class _RegisterPageStateState extends State<RegisterPageState> {
   final AuthenticationService _auth = AuthenticationService();
+  final UserDataService _userDataService = UserDataService();
   final _formKey = GlobalKey<FormState>();
   String name = '';
   String email = '';
   String password = '';
   String repeatpassword = '';
   String error = '';
-
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  XFile? profilePic;
   TemplateMaker templatemkr = TemplateMaker();
 
   // TextEditingController email_controller = TextEditingController();
   // TextEditingController name_controller = TextEditingController();
   // TextEditingController shdw_controller = TextEditingController();
   // TextEditingController shdw2_controller = TextEditingController();
+
+  void _navigateAndGetProfilePicture(BuildContext context) async {
+    profilePic = await Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +169,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                                       height: 60.0,
                                                       child: ElevatedButton.icon(
                                                           onPressed: () {
-                                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage(username: name,)));
+                                                            _navigateAndGetProfilePicture(context);
                                                           },
                                                           icon: const Icon(Icons.camera_alt, size: 24),
                                                           label: const Text("")),
@@ -177,13 +192,20 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                     child: ElevatedButton(
                                         onPressed: () async {
                                           if (_formKey.currentState!.validate()) {
-                                            dynamic result = await _auth.registerWithEmailAndPassword(email, password, name);
-                                            if (result == null) {
-                                              setState(() => error = 'Registration unsuccessful, please try again');
-                                            }
-                                            else {
-                                              setState(() => error = '');
-                                              Navigator.pop(context, false);
+                                            if (userFaceArray.isEmpty) {
+                                              await showDialog(context: context, builder:(context)=> AlertDialog(content: Text("Please take a photo of yourself first!")));
+                                            } else {
+                                              dynamic result = await _auth.registerWithEmailAndPassword(email, password, name);
+                                              if (result == null) {
+                                                setState(() => error = 'Registration unsuccessful, please try again');
+                                              }
+                                              else {
+                                                final uid = FirebaseAuth.instance.currentUser!.uid;
+                                                _userDataService.createUserData(uid, email, name, userFaceArray);
+                                                saveImage(File(profilePic!.path), uid);
+                                                setState(() => error = '');
+                                                Navigator.pop(context, false);
+                                              }
                                             }
                                           }
                                         },

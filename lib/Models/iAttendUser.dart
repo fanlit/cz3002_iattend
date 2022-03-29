@@ -1,8 +1,7 @@
 class iAttendUser {
+  final String uid;
   final String email;
-  final String firstName;
-  final String lastName;
+  final String name;
   final List<double> userFaceArray;
-
-  iAttendUser(this.email, this.firstName, this.lastName, this.userFaceArray);
+  iAttendUser(this.uid, this.email, this.name, this.userFaceArray);
 }

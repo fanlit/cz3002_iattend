@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:math' as math;
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FileImageService.dart';
@@ -13,8 +13,7 @@ import 'package:cz3002_iattend/Services/MLService.dart';
 // import 'globalenv.dart';
 
 class PhotoTakingPage extends StatefulWidget {
-  PhotoTakingPage({ Key? key, required String this.username}) : super(key: key);
-  String username;
+  PhotoTakingPage({ Key? key}) : super(key: key);
 
   @override
   State<PhotoTakingPage> createState() => _PhotoTakingPageState();
@@ -98,9 +97,9 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
         onPressed: (){
           //TODO saving image
           userFaceArray= _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
-          saveImage(File(imageFile!.path), widget.username);
+          //saveImage(File(imageFile!.path), FirebaseAuth.instance.currentUser!.uid);
           //return
-          Navigator.pop(context, false); 
+          Navigator.pop(context, imageFile);
         }, child: const Text("Save"));
     }
 
