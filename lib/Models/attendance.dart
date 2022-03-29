@@ -6,7 +6,7 @@ class Attendance
   final String eventCode;
   final String eventName;
   final String attendeeID;
-  final Timestamp signInTime;
+  final DateTime signInTime;
 
   Attendance(this.eventID, this.eventCode, this.eventName, this.attendeeID, this.signInTime);
 }

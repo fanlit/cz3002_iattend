@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// import '../../Models/iAttendUser.dart';
+import '../../Models/iAttendUser.dart';
 
 class UserDataService
 {
@@ -13,33 +13,21 @@ class UserDataService
     //Find the document corresponding to the uid in the collection.
     //If no such document exists (first sign up etc), create one.
     //Add this function to auth method
-  await userCollection.add(
-        {
-          'uid': uid,
-          'email': email,
-          'name': name,
-          'userFaceArray': userFaceArray}
+    await userCollection.doc(uid).set({
+        'uid': uid,
+        'email': email,
+        'name': name,
+        'userFaceArray': userFaceArray
+    });
+  }
+
+  Future<iAttendUser> getUser(String uid) async {
+    var userSnapShot = await userCollection.doc(uid).get();
+    return iAttendUser(
+        uid,
+        userSnapShot.get("email"),
+        userSnapShot.get("name"),
+        userSnapShot.get("userFaceArray"),
     );
   }
-
-  Future<String> getUserName(String uid) async {
-    QuerySnapshot querySnapshot = await userCollection
-        .where('uid', isEqualTo: uid)
-        .get();
-    return querySnapshot.docs[0]['name'];
-  }
-
-  Future<String> getUserEmail(String uid) async {
-    QuerySnapshot querySnapshot = await userCollection
-        .where('uid', isEqualTo: uid)
-        .get();
-    return querySnapshot.docs[0]['email'];
-  }
-
-  //Get Users Stream
-  // Stream<List<iAttendUser>> get users
-  // {
-  //   return userCollection.snapshots().map(_UserListFromSnapshot);
-  // }
-
 }

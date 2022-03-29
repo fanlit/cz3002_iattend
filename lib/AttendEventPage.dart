@@ -4,7 +4,7 @@ import 'FacialAuthenticationPage.dart';
 import 'Models/event.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
-
+//
 class AttendEventPage extends StatefulWidget {
   const AttendEventPage({Key? key}) : super(key: key);
 

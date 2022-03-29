@@ -4,7 +4,7 @@ import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
 import 'OrganisedListView.dart';
-
+//
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
   final AuthenticationService _auth = AuthenticationService();

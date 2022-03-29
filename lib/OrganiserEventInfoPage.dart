@@ -3,7 +3,7 @@ import 'OrganiserEventAttendeePage.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Models/event.dart';
-
+//
 class OrganiserEventInfoPage extends StatefulWidget{
   OrganiserEventInfoPage({ Key? key, required Event this.eventItem}) : super(key: key);
   Event eventItem;

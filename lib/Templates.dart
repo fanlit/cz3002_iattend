@@ -163,13 +163,6 @@ class TemplateMaker {
   Container EventDetailsContainer(Event eventItem) {
     print("in templatemkr");
     print(eventItem.eventName);
-    //Dummy data
-    // var eventDetails = ["gameshow 1", "NTU Auditorium 1", "26/3/2022, 13:30", "This is dummy event data.\nPlease implement the function to aquire the data from backend!", "12356"];
-
-
-    // EventDataService eventserver = EventDataService(eventCode);
-    // Can return as a list similar to the above?
-    // Event eventDetails = eventserver.getEventById(eventCode) as Event;
 
     return Container(
         color: const Color.fromARGB(255, 182, 182, 182), // background color

@@ -17,7 +17,7 @@ class AttendanceTile extends StatelessWidget
               radius: 25.0,
               backgroundColor: Colors.brown,
             ),
-            title: Text(attendance.eventName),
+            title: Text(attendance.eventID), // Better to use eventID to query for event name?
             subtitle: Text("Test"),
           ),
         ),
