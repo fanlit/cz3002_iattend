@@ -97,9 +97,13 @@ class _AttendEventPageState extends State<AttendEventPage> {
                                                     eventItem.then((value) {
                                                       eventDetails = value;
                                                       _isLoading=false;
+                                                      setState(() {});},
+                                                    onError: (e){
+                                                      showDialog(context: context, builder:(context)=> AlertDialog(content: Text("No event found for code ${eventcode_controller.text}")));
+                                                      _isLoading=false;
                                                       setState(() {});
-                                                    },
-                                                    onError: (e){print(e);});
+                                                    },                                                    
+                                                    );
                                                     setState(() {});
                                                   },
                                                   child: _isLoading ?  const CircularProgressIndicator(color: Colors.black,) :

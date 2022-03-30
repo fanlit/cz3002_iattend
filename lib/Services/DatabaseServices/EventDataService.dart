@@ -32,7 +32,8 @@ class EventDataService
   Future<Event> getEventByJoiningCode(String joiningCode)
   async {
     QuerySnapshot doc = await eventCollection.where('joiningCode', isEqualTo: joiningCode).get();
-    return _EventListFromSnapshot(doc)[0];
+    if(doc.size==0){return Future.error("No Event found");}
+    else{return _EventListFromSnapshot(doc)[0];}
   }
 
   Future<List<Event>> getEventByCreator(String creator)
