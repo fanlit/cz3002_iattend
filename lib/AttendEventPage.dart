@@ -74,6 +74,7 @@ class _AttendEventPageState extends State<AttendEventPage> {
                                               height: 30,
                                               width: 230,
                                               child: TextField(
+                                                  textAlignVertical: TextAlignVertical.bottom,
                                                   controller: eventcode_controller,
                                                   decoration: const InputDecoration(
                                                       border: OutlineInputBorder(),
@@ -90,7 +91,6 @@ class _AttendEventPageState extends State<AttendEventPage> {
                                                   onPressed: () {
                                                     eventItem = eventMngr.getEventByJoiningCode(eventcode_controller.text);
                                                     eventItem.then((value) {
-                                                      print("before templatemkr");
                                                       eventDetails = value;
                                                       setState(() {});
                                                     },
@@ -145,7 +145,14 @@ class _AttendEventPageState extends State<AttendEventPage> {
   }
 
   void _NavigateToFacialAuthAndReturnResult(BuildContext context) async {
-    _isAttended = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const FacialAuthenticationPage()));
+    if (eventDetails.eventID.isEmpty) {
+      showDialog(context: context, builder:(context)=> const AlertDialog(title: Text("ERROR") ,content: Text("Please enter an event code!")));
+    }
+    else {
+      _isAttended = await Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => FacialAuthenticationPage(
+                  joiningCode: eventDetails.joiningCode)));
+    }
   }
 }

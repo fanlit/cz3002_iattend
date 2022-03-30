@@ -89,12 +89,15 @@ class TemplateMaker {
     );
   }
 
-  Container Attendee(String username, String email, String regdate) {
+  Container Attendee(String username, String email) {
+    print("2");
+    print(email);
+    print(username);
     return Container(
       constraints: const BoxConstraints(maxHeight: double.infinity),
       color: Colors.deepOrange,
       width: double.infinity,
-      height: 90,
+      height: 70,
       child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Container(
@@ -112,57 +115,55 @@ class TemplateMaker {
                 softWrap: true,
                 style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
-              Text(
-                "Reg. Date: " + regdate,
-                softWrap: true,
-                style: const TextStyle(fontSize: 18, color: Colors.white),
-              ),
             ],
           ))),
     );
   }
 
-  Column attendeeModule(String username, String email, String regdate) {
+  Column attendeeModule(String email, String username) {
+    print("1");
+    print(email);
+    print(username);
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Attendee(username, email, regdate),
+          Attendee(username, email),
           const SizedBox(height: 10)
         ]);
   }
 
-  Container PopulateEventAttendees() {
-    // 1 = PopulateAttendee, 2 = Populate Organised, 3= Populate Organised
-    // Dummy data
-    var attendees = [
-      ['Jim', 'Jim@gmail.com', '2/3/2022'],
-      ['Jane1', 'Jane@gmail.com', '2/3/2022'],
-      ['Jane2', 'Jane@gmail.com', '2/3/2022'],
-      ['Jane3', 'Jane@gmail.com', '2/3/2022'],
-      ['Jane4', 'Jane@gmail.com', '2/3/2022'],
-      ['Jane5', 'Jane@gmail.com', '2/3/2022']
-    ];
-
-    // TODO: implement data acquisition from backend to populate
-
-
-    return Container(
-        // color: Colors.amberAccent,
-        height: 380,
-        width: 325,
-        child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-              for (var i = 0; i < 6; i++)
-                attendeeModule(
-                    attendees[i][0], attendees[i][1], attendees[i][2])
-            ])));
-  }
+  // Container PopulateEventAttendees (String eventID) {
+  //   print(eventID);
+  //   late Future attendanceList;
+  //   Map<String, String> attendees = {};
+  //   AttendanceDataService attendanceMngr = AttendanceDataService();
+  //   attendanceList = attendanceMngr.getAttendanceListByEventID(eventID);
+  //   attendanceList.then((value){
+  //     attendees = value;
+  //     if(value == null){
+  //       print("here");
+  //       return const CircularProgressIndicator();
+  //     }
+  //     else{
+  //       print("here2");
+  //       print(attendees.keys);
+  //       return Container(
+  //         color: Colors.amberAccent,
+  //           height: 380,
+  //           width: 325,
+  //           child: SingleChildScrollView(
+  //               child: Column(
+  //                   crossAxisAlignment:  CrossAxisAlignment.center,
+  //                   children: <Widget>[
+  //                     for(var attendee in attendees.entries)
+  //                       attendeeModule(attendee.key, attendee.value)
+  //                   ])));
+  //     }
+  //   });
+  //   return Container(child: const Text("oh no!"));
+  // }
 
   Container EventDetailsContainer(Event eventItem) {
-    print("in templatemkr");
-    print(eventItem.eventName);
 
     return Container(
         color: const Color.fromARGB(255, 182, 182, 182), // background color

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'Services/DatabaseServices/AttendanceDataService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
 class OrganiserEventAttendeePage extends StatefulWidget {
-  late String eventCode;
-  OrganiserEventAttendeePage({Key? key, required this.eventCode}) : super(key: key);
+  late String eventName;
+  late String eventID;
+  OrganiserEventAttendeePage({Key? key, required this.eventName, required this.eventID}) : super(key: key);
   @override
   State<OrganiserEventAttendeePage> createState() => _OrganiserEventAttendeePageState();
 }
 
 class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage> {
   TemplateMaker templatemkr = TemplateMaker();
-  //TODO: make a function to return the participant list without the Future encapsulation
-
+  late Future attendanceList;
+  Map<String, String> attendees = {};
+  AttendanceDataService attendanceMngr = AttendanceDataService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +47,7 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
                               Container(
                                   color: const Color.fromRGBO(
                                       199, 199, 199, 1), // background color
-                                  height: 470,
+                                  height: 480,
                                   width: 350,
                                   child: Column(
                                       crossAxisAlignment:
@@ -52,7 +55,7 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
                                       children: <Widget>[
                                         SizedBox(height: 10),
                                         Text(
-                                          "" + widget.eventCode,
+                                          "" + widget.eventName,
                                           style: const TextStyle(
                                               fontSize: 30,
                                               color: Colors.deepOrange,
@@ -74,7 +77,36 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
                                             )
                                           ],
                                         ),
-                                        templatemkr.PopulateEventAttendees(),
+                                        SizedBox(height: 10),
+                                        FutureBuilder(
+                                            future: attendanceMngr.getAttendanceListByEventID(widget.eventID),
+                                            builder: (BuildContext context, AsyncSnapshot snapshot){
+                                              if(snapshot.connectionState == ConnectionState.waiting){
+                                                  return const CircularProgressIndicator();
+                                              }
+                                              if(snapshot.hasError){
+                                                return Text(
+                                                  '${snapshot.error}',
+                                                  style: const TextStyle(color: Colors.red),
+                                                );
+                                              }
+                                              if(snapshot.hasData){
+                                                attendees = snapshot.data;
+                                                return Container(
+                                                    // color: Colors.amberAccent,
+                                                    height: 380,
+                                                    width: 325,
+                                                    child: SingleChildScrollView(
+                                                        child: Column(
+                                                            crossAxisAlignment:  CrossAxisAlignment.center,
+                                                            children: <Widget>[
+                                                              for(var attendee in attendees.entries)
+                                                                templatemkr.attendeeModule(attendee.key, attendee.value)
+                                                            ])));
+                                              }
+                                              return Container();
+                                            },
+                                        )
                                       ])),
                               Container(
                                   height: 100,

@@ -67,7 +67,7 @@ class _OrganiserEventInfoPageState extends State<OrganiserEventInfoPage>{
                                                 style: ElevatedButton.styleFrom(
                                                     onSurface: Colors.deepOrange),
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventAttendeePage(eventCode: widget.eventItem.joiningCode)));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventAttendeePage(eventName: widget.eventItem.eventName, eventID: widget.eventItem.eventID,)));
                                                 },
                                                 child: const Text(
                                                   'Participants',

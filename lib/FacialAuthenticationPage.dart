@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
+import 'Services/DatabaseServices/AttendanceDataService.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
 
+
 class FacialAuthenticationPage extends StatefulWidget {
-  const FacialAuthenticationPage({Key? key}) : super(key: key);
+  String joiningCode;
+  FacialAuthenticationPage({Key? key, required this.joiningCode}) : super(key: key);
   @override
   State<FacialAuthenticationPage> createState() => _FacialAuthenticationPageState();
 }
@@ -20,6 +23,7 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
   final CameraService _cameraService = locator<CameraService>();
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
   final MLService _mlService = locator<MLService>();
+  final AttendanceDataService attendanceMngr = AttendanceDataService();
   int popCount = 1;
   final log = Logger();
   XFile? imagepath;
@@ -37,10 +41,10 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
           // authRes = false;
           _cameraService.cameraController?.pausePreview();
           outputText = "Authenticated!";
-          // Navigator.pop(context, authRes);
           // wait for 2 seconds before returning to the AttendEventPage to disable the ATTEND button
           if (popCount == 1) {
-            sleep(Duration(seconds: 2));
+            sleep(const Duration(seconds: 2));
+            attendanceMngr.createAttendanceData(uid, widget.joiningCode);
             Navigator.pop(context, authRes);
             popCount = popCount - 1;
           }
@@ -84,15 +88,15 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                      const SizedBox(height: 50),
-                      heading,
-                      SizedBox(
-                          width: width,
-                          height: height * 0.6,
-                          child: Center(
-                              child: Camera(onFaceDeteced: onFaceDetected))),
-                      const SizedBox(height: 50),
-                      Text(outputText, textAlign: TextAlign.center),
+                          const SizedBox(height: 50),
+                          heading,
+                          SizedBox(
+                              width: width,
+                              height: height * 0.6,
+                              child: Center(
+                                  child: Camera(onFaceDeteced: onFaceDetected))),
+                          const SizedBox(height: 50),
+                          Text(outputText, textAlign: TextAlign.center),
                     ]))))));
   }
 }
