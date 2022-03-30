@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'Services/DatabaseServices/EventDataService.dart';
+import 'Services/DatabaseServices/AttendanceDataService.dart';
 import 'FacialAuthenticationPage.dart';
 import 'Models/event.dart';
 import 'Templates.dart';
@@ -21,7 +24,7 @@ class _AttendEventPageState extends State<AttendEventPage> {
   late Future eventItem;
   Event eventDetails = Event("", "", "", "", "", "", "", DateTime.now(), DateTime.now());
   bool _isAttended = false;
-
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,23 +89,27 @@ class _AttendEventPageState extends State<AttendEventPage> {
                                               width: 100.0,
                                               height: 30.0,
                                               child: ElevatedButton(
-                                                  style: ElevatedButton.styleFrom(
-                                                      onSurface: Colors.deepOrange),
-                                                  onPressed: () {
+                                                  style: ElevatedButton.styleFrom(onSurface: Colors.deepOrange),
+                                                  onPressed: _isLoading ? null : () {
+                                                    _isLoading=true;
+                                                    FocusManager.instance.primaryFocus?.unfocus(); 
                                                     eventItem = eventMngr.getEventByJoiningCode(eventcode_controller.text);
                                                     eventItem.then((value) {
                                                       eventDetails = value;
+                                                      _isLoading=false;
                                                       setState(() {});
                                                     },
                                                     onError: (e){print(e);});
+                                                    setState(() {});
                                                   },
-                                                  child: const Text(
-                                                    'Search',
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontFamily: 'DMSans'),
-                                                  )))
+                                                  child: _isLoading ?  const CircularProgressIndicator(color: Colors.black,) :
+                                                    const Text('Search',
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontFamily: 'DMSans'),
+                                                    )
+                                                  ))
                                         ]),
                                     const SizedBox(height: 20),
                                   ]),
@@ -153,6 +160,7 @@ class _AttendEventPageState extends State<AttendEventPage> {
           MaterialPageRoute(
               builder: (context) => FacialAuthenticationPage(
                   joiningCode: eventDetails.joiningCode)));
+      if(_isAttended){AttendanceDataService().createAttendanceData(uid, eventDetails.joiningCode);}
     }
   }
 }

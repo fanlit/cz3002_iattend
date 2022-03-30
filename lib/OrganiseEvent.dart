@@ -178,6 +178,7 @@ class _OrganizeEventPageState extends State<OrganizeEventPage> {
                                                   eventEndDate,
                                                   eventStartTime,
                                                   eventEndTime);
+                                                  FocusManager.instance.primaryFocus?.unfocus();
                                             },
                                             child: const Text(
                                               'Create Event',

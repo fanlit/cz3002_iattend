@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:logger/logger.dart';
-import 'Services/DatabaseServices/AttendanceDataService.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
 import 'package:cz3002_iattend/Services/FaceDetectorService.dart';
@@ -23,33 +22,44 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
   final CameraService _cameraService = locator<CameraService>();
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
   final MLService _mlService = locator<MLService>();
-  final AttendanceDataService attendanceMngr = AttendanceDataService();
+  // final AttendanceDataService attendanceMngr = AttendanceDataService();
   int popCount = 1;
   final log = Logger();
-  XFile? imagepath;
-  bool imageTaken = false;
-  String outputText = "Please show face";
+  // XFile? imagepath;
+  // bool imageTaken = false;
+  bool authenticated = false;
+  int dialogShown = 0;
+  String outputText = "Please show your face to the camera for attendance verification";
 
   //Will be passed to the camera widget so it will be executed when it is streaming images
   void onFaceDetected(CameraImage image, Face? face) {
     bool authRes = false;
     setState(() {
-      if (face != null) {
+      if (face != null && authenticated == false) {
         predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
         authRes = _mlService.searchResult(predictedData);
-        if (authRes == true) {
-          // authRes = false;
+        if (authRes == true && authenticated == false) {
+          authenticated == true;
           _cameraService.cameraController?.pausePreview();
-          outputText = "Authenticated!";
-          // wait for 2 seconds before returning to the AttendEventPage to disable the ATTEND button
-          if (popCount == 1) {
-            sleep(const Duration(seconds: 2));
-            attendanceMngr.createAttendanceData(uid, widget.joiningCode);
-            Navigator.pop(context, authRes);
-            popCount = popCount - 1;
+          outputText = "User Authenticated!";
+            dialogShown +=1;
+          if(dialogShown==1){
+            showDialog(
+            context: context, 
+            builder:(context)=> AlertDialog(
+              title: const Text("Authenticated. Welcome!"),
+              content: Text("Event code: ${widget.joiningCode}"),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'OK');
+                    Navigator.pop(context, authRes);
+                    },
+                  child: const Text('OK'),
+                )],
+              )          
+            );
           }
-        } else {
-          outputText = "Not Authenticated";
         }
       } else {
         outputText =
