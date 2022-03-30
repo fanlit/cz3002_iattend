@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cz3002_iattend/AttendEventPage.dart';
 import 'package:cz3002_iattend/ProfilePage.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // initialize user variables in globalenv.dart after logging in.
     username = _auth.getCurrentDisplayName().toString();
     email = _auth.getCurrentDisplayEmail().toString();
+    uid = FirebaseAuth.instance.currentUser!.uid;
+
+
     return Scaffold(
       body: Column(
         children: <Widget>[

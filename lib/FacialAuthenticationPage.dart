@@ -34,11 +34,13 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
         predictedData = _mlService.setCurrentPrediction(image, _detectorService.faces[0]);
         authRes = _mlService.searchResult(predictedData);
         if (authRes == true) {
+          // authRes = false;
           _cameraService.cameraController?.pausePreview();
           outputText = "Authenticated!";
+          // Navigator.pop(context, authRes);
           // wait for 2 seconds before returning to the AttendEventPage to disable the ATTEND button
-          sleep(Duration(seconds: 2));
           if (popCount == 1) {
+            sleep(Duration(seconds: 2));
             Navigator.pop(context, authRes);
             popCount = popCount - 1;
           }

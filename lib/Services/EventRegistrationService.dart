@@ -20,7 +20,7 @@ class EventRegistrationService {
     return (getRandomString(6));
   }
 
-  void registerEvent(
+  void registerEvent (
       BuildContext context,
       String eventName,
       String venue,
@@ -29,13 +29,15 @@ class EventRegistrationService {
       DateTime eventEndDate,
       TimeOfDay eventStartTime,
       TimeOfDay eventEndTime) {
-    String joiningCode = GenerateRandomCode();
-    final startDateTime = DateTime(eventStartDate.year, eventStartDate.month,
-        eventStartDate.day, eventStartTime.hour, eventStartTime.minute);
-    final endDateTime = DateTime(eventEndDate.year, eventEndDate.month,
-        eventEndDate.day, eventEndTime.hour, eventEndTime.minute);
-    eventMngr.createEventData(eventName, venue, username, email, descp,
-        joiningCode, startDateTime, endDateTime);
-    templatemkr.registeredDialog(context);
+        String joiningCode = GenerateRandomCode();
+        final startDateTime = DateTime(eventStartDate.year, eventStartDate.month,
+            eventStartDate.day, eventStartTime.hour, eventStartTime.minute);
+        final endDateTime = DateTime(eventEndDate.year, eventEndDate.month,
+            eventEndDate.day, eventEndTime.hour, eventEndTime.minute);
+        eventMngr.createEventData(eventName, venue, username, email, descp,
+            joiningCode, startDateTime, endDateTime);
+
+
+        templatemkr.registeredDialog(context);
   }
 }

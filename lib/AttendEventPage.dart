@@ -19,7 +19,7 @@ class _AttendEventPageState extends State<AttendEventPage> {
 
   // TODO: set to true/false based on whether user has previous attendance with the event or not.
   late Future eventItem;
-  Event eventDetails = Event("", "", "", "", "", "", DateTime.now(), DateTime.now());
+  Event eventDetails = Event("", "", "", "", "", "", "", DateTime.now(), DateTime.now());
   bool _isAttended = false;
 
 

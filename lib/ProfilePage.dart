@@ -1,10 +1,11 @@
+import 'package:cz3002_iattend/test_db.dart';
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
 import 'OrganisedListView.dart';
-//
+
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
   final AuthenticationService _auth = AuthenticationService();
@@ -60,7 +61,7 @@ class ProfilePageState extends StatelessWidget {
                                               width: 150,
                                               child: ElevatedButton(
                                                   onPressed: () {
-                                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => OrganiserEventInfoPage()));
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => TestDBPage()));
                                                     }, // TODO: show organized events
                                                   child: const Text(
                                                     'Attended',

@@ -46,6 +46,7 @@ class _ListViewClickListenerState extends State<ListLayout> {
           }
           if(snapshot.hasData){
             List<Event> _myDataList = snapshot.data;
+            // print(snapshot.data.eventName);
             return ListView(
               children: _myDataList
                   .map((data) => ListTile(

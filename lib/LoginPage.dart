@@ -18,12 +18,8 @@ class _LoginPageStateState extends State<LoginPageState> {
 
   TemplateMaker templatemkr = TemplateMaker();
 
-  // TextEditingController email_controller = TextEditingController();
-  // TextEditingController shdw_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
         body: Container(
