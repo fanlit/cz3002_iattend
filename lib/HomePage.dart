@@ -1,28 +1,34 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cz3002_iattend/AttendEventPage.dart';
+import 'Services/DatabaseServices/UserDataService.dart';
 import 'package:cz3002_iattend/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'OrganiseEvent.dart';
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
+import 'Models/iAttendUser.dart';
 import 'globalenv.dart';
 
 class HomePage extends StatelessWidget {
   // HomePage({Key? key, required String this.username}) : super(key: key);
   HomePage({Key? key}) : super(key: key);
   final AuthenticationService _auth = AuthenticationService();
+  final UserDataService userDataMngr = UserDataService();
+  late Future user;
+  iAttendUser appUser = iAttendUser("", "", "", userFaceArray);
   // String username = '';
 
   @override
   Widget build(BuildContext context) {
 
     // initialize user variables in globalenv.dart after logging in.
+    uid = FirebaseAuth.instance.currentUser!.uid;
     username = _auth.getCurrentDisplayName().toString();
     email = _auth.getCurrentDisplayEmail().toString();
-    uid = FirebaseAuth.instance.currentUser!.uid;
-
-
+    user = userDataMngr.getUser(uid);
+    user.then((value){appUser = value;},);
+    userFaceArray = appUser.userFaceArray;
     return Scaffold(
       body: Column(
         children: <Widget>[
