@@ -9,7 +9,7 @@ import 'ImageConverter.dart';
 
 class MLService {
   late Interpreter _interpreter;
-  double threshold = 0.6;
+  double threshold = 0.7;
 
   late List _predictedData;
   List get predictedData => _predictedData;

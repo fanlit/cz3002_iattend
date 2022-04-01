@@ -36,9 +36,10 @@ class _HomePageState extends State<HomePage> {
     user.then((value){
       appUser = value;
       userFaceArray = appUser.userFaceArray;
-      setState(() {});},);
+      setState(() {});
+      },);
     // setState(() {});
-    // print(userFaceArray);
+    print(userFaceArray);
     return Scaffold(
       body: Column(
         children: <Widget>[
