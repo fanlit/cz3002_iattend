@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cz3002_iattend/Models/event.dart';
+import 'EventDataService.dart';
 import 'dart:core';
 
 class AttendanceDataService {
@@ -15,6 +17,7 @@ class AttendanceDataService {
       .collection('events');
   final CollectionReference userCollection = FirebaseFirestore.instance
       .collection('users');
+  final EventDataService eventMngr = EventDataService();
 
   //Create data upon signup/existing user updates data
   Future<void> createAttendanceData(String attendeeID, String joiningCode) async
@@ -39,6 +42,16 @@ class AttendanceDataService {
       output[documentReference.get("eventName")] = signInTime;
     }
      return output;
+  }
+
+  Future<List<Event>> getUserEventsAttendanceRecord(String uid) async {
+    final QuerySnapshot results = await attendanceCollection.where('attendeeID', isEqualTo: uid).get();
+    List<Event> output = [];
+    for (var doc in results.docs)
+    {
+      output.add(await eventMngr.getEventByEventID(doc.get('eventID').toString()));
+    }
+    return output;
   }
 
   // Returns a map of student email and student name.

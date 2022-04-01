@@ -2,19 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cz3002_iattend/Models/event.dart';
 import 'dart:core';
 
-class EventDataService
-{
+class EventDataService {
 
   //final String eventID;
   EventDataService();
 
   //Collection Reference
-  final CollectionReference eventCollection = FirebaseFirestore.instance.collection('events');
+  final CollectionReference eventCollection = FirebaseFirestore.instance
+      .collection('events');
 
 
-  Future createEventData(String eventName, String venue, String creator, String email, String description, String joiningCode, DateTime start, DateTime end) async
+  Future createEventData(String eventName, String venue, String creator,
+      String email, String description, String joiningCode, DateTime start,
+      DateTime end) async
   {
-
     var newEvent = await eventCollection.add({'eventName': eventName,});
     newEvent.set({
       'eventName': eventName,
@@ -26,33 +27,47 @@ class EventDataService
       'joiningCode': joiningCode,
       'start': start,
       'end': end
-      });
+    });
   }
 
-  Future<Event> getEventByJoiningCode(String joiningCode)
-  async {
-    QuerySnapshot doc = await eventCollection.where('joiningCode', isEqualTo: joiningCode).get();
-    if(doc.size==0){return Future.error("No Event found");}
-    else{return _EventListFromSnapshot(doc)[0];}
-  }
-
-  Future<List<Event>> getEventByCreator(String creator)
-  async {
-    QuerySnapshot results = await eventCollection.where('creator', isEqualTo: creator).get();
-    return _EventListFromSnapshot(results);
+  Future<Event> getEventByJoiningCode(String joiningCode) async {
+    QuerySnapshot doc = await eventCollection.where(
+        'joiningCode', isEqualTo: joiningCode).get();
+    if (doc.size == 0) {
+      return Future.error("No Event found");
     }
+    else {
+      return _EventListFromSnapshot(doc)[0];
+    }
+  }
+
+  Future<Event> getEventByEventID(String eventID) async {
+    QuerySnapshot doc = await eventCollection.where(
+        'eventID', isEqualTo: eventID).get();
+    if (doc.size == 0) {
+      return Future.error("No Event found");
+    }
+    else {
+      return _EventListFromSnapshot(doc)[0];
+    }
+  }
+
+  Future<List<Event>> getEventByCreator(String creator) async {
+    QuerySnapshot results = await eventCollection.where(
+        'creator', isEqualTo: creator).get();
+    return _EventListFromSnapshot(results);
+  }
 
   Future<List<Event>> getEventByCreatorEmail(String creatorEmail) async {
-    QuerySnapshot results = await eventCollection.where('creatorEmail', isEqualTo: creatorEmail).get();
+    QuerySnapshot results = await eventCollection.where(
+        'creatorEmail', isEqualTo: creatorEmail).get();
     // print(creatorEmail);
     return _EventListFromSnapshot(results);
   }
 
-
   //Event list from snapshot
-  List<Event> _EventListFromSnapshot(QuerySnapshot snapshot)
-  {
-    return snapshot.docs.map((doc){
+  List<Event> _EventListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
       return Event(
         doc.get('eventID').toString(),
         doc.get('eventName').toString(),
@@ -63,15 +78,6 @@ class EventDataService
         doc.get('joiningCode').toString(),
         doc.get('start').toDate(),
         doc.get('end').toDate(),
-        // '123',
-        // 'eventname',
-        //  'venue',
-        // 'creator',
-        // 'creatorEmail',
-        // 'description',
-        // 'joining code',
-        // DateTime.now(),
-        // DateTime.now(),
       );
     }).toList();
   }
