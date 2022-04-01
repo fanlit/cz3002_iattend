@@ -10,9 +10,15 @@ import 'Widget/ProfilePictureWidget.dart';
 import 'Models/iAttendUser.dart';
 import 'globalenv.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget{
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+
+class _HomePageState extends State<HomePage> {
   // HomePage({Key? key, required String this.username}) : super(key: key);
-  HomePage({Key? key}) : super(key: key);
+  // HomePage({Key? key}) : super(key: key);
   final AuthenticationService _auth = AuthenticationService();
   final UserDataService userDataMngr = UserDataService();
   late Future user;
@@ -27,8 +33,12 @@ class HomePage extends StatelessWidget {
     username = _auth.getCurrentDisplayName().toString();
     email = _auth.getCurrentDisplayEmail().toString();
     user = userDataMngr.getUser(uid);
-    user.then((value){appUser = value;},);
-    userFaceArray = appUser.userFaceArray;
+    user.then((value){
+      appUser = value;
+      userFaceArray = appUser.userFaceArray;
+      setState(() {});},);
+    // setState(() {});
+    // print(userFaceArray);
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -93,6 +103,10 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () async {
                         await _auth.signOut();
+                        userFaceArray = [];
+                        username = "";
+                        email = "";
+                        uid = "";
                       },
                       icon: Icon(
                         Icons.logout,
