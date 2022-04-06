@@ -6,7 +6,6 @@ import 'dart:core';
 
 class AttendanceDataService {
 
-  //final String attendanceID;
 
   AttendanceDataService();
 

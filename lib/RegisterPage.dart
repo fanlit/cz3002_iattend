@@ -6,7 +6,6 @@ import 'Templates.dart';
 import 'globalenv.dart';
 import 'PhotoTakingPage.dart';
 import 'dart:io';
-import 'Models/iAttendUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Services/DatabaseServices/UserDataService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,26 +29,18 @@ class _RegisterPageStateState extends State<RegisterPageState> {
   XFile? profilePic;
   TemplateMaker templatemkr = TemplateMaker();
 
-  // TextEditingController email_controller = TextEditingController();
-  // TextEditingController name_controller = TextEditingController();
-  // TextEditingController shdw_controller = TextEditingController();
-  // TextEditingController shdw2_controller = TextEditingController();
-
   void _navigateAndGetProfilePicture(BuildContext context) async {
     profilePic = await Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoTakingPage()));
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
-                      // color: Colors.green,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
@@ -67,15 +58,11 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                 ]),
                             const SizedBox(height: 40), //spacing n between logo and fields
                             Container(
-                                // color: Color.fromRGBO(199, 199, 199, 1),  // background color
-                                // height: 600,
-                                // width: 350,
                                 child: Form(
                                   key: _formKey,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children:<Widget>[
-                                      // templatemkr.TextfieldwithBG("Name", "Name", name_controller,Color.fromRGBO(255, 255, 255, 1)),
                                       Text("Name",
                                           style: TextStyle(
                                               fontSize: fontregular,
@@ -83,7 +70,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                               fontFamily: 'DMSans'
                                           )),
                                       TextFormField(
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(), hintText: "Name"
                                           ),
                                           validator: (val) => val!.isEmpty ? 'Please enter name' : null,
@@ -92,7 +79,6 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                           }
                                       ),
                                       const SizedBox(height:20),
-                                      // templatemkr.TextfieldwithBG("Email", "Email", email_controller,Color.fromRGBO(255, 255, 255, 1)),
                                       Text("Email",
                                           style: TextStyle(
                                               fontSize: fontregular,
@@ -100,7 +86,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                               fontFamily: 'DMSans'
                                           )),
                                       TextFormField(
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(), hintText: "Email"
                                           ),
                                           validator: (val) => validateEmail(val),
@@ -109,7 +95,6 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                           }
                                       ),
                                       const SizedBox(height:20),
-                                      // templatemkr.TextfieldwithBG("Password", "Password", shdw_controller,Color.fromRGBO(255, 255, 255, 1)),
                                       Text("Password",
                                           style: TextStyle(
                                               fontSize: fontregular,
@@ -127,7 +112,6 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                           }
                                       ),
                                       const SizedBox(height:20),
-                                      // templatemkr.TextfieldwithBG("Repeat Password", "Password", shdw2_controller,Color.fromRGBO(255, 255, 255, 1)),
                                       Text("Repeat Password",
                                           style: TextStyle(
                                               fontSize: fontregular,
@@ -136,7 +120,7 @@ class _RegisterPageStateState extends State<RegisterPageState> {
                                           )),
                                       TextFormField(
                                           obscureText: true,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(), hintText: "Password"
                                           ),
                                           validator: (val) {
@@ -239,7 +223,6 @@ class _RegisterPageStateState extends State<RegisterPageState> {
 
   String? validatePassword(String? value) {
     RegExp regex =
-    // RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     if (value == null || value.isEmpty) {
       return 'Please enter password';

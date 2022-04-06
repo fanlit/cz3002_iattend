@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'globalenv.dart';
 import 'Models/event.dart';
 
+
 class TemplateMaker {
-
-
   Column Textfield(
       String fieldname, String hint, TextEditingController controller) {
     return Column(
@@ -131,37 +130,6 @@ class TemplateMaker {
           const SizedBox(height: 10)
         ]);
   }
-
-  // Container PopulateEventAttendees (String eventID) {
-  //   print(eventID);
-  //   late Future attendanceList;
-  //   Map<String, String> attendees = {};
-  //   AttendanceDataService attendanceMngr = AttendanceDataService();
-  //   attendanceList = attendanceMngr.getAttendanceListByEventID(eventID);
-  //   attendanceList.then((value){
-  //     attendees = value;
-  //     if(value == null){
-  //       print("here");
-  //       return const CircularProgressIndicator();
-  //     }
-  //     else{
-  //       print("here2");
-  //       print(attendees.keys);
-  //       return Container(
-  //         color: Colors.amberAccent,
-  //           height: 380,
-  //           width: 325,
-  //           child: SingleChildScrollView(
-  //               child: Column(
-  //                   crossAxisAlignment:  CrossAxisAlignment.center,
-  //                   children: <Widget>[
-  //                     for(var attendee in attendees.entries)
-  //                       attendeeModule(attendee.key, attendee.value)
-  //                   ])));
-  //     }
-  //   });
-  //   return Container(child: const Text("oh no!"));
-  // }
 
   Container EventDetailsContainer(Event eventItem) {
 

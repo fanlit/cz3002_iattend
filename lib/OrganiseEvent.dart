@@ -3,6 +3,7 @@ import 'Services/EventRegistrationService.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 
+
 class OrganizeEventPage extends StatefulWidget {
   @override
   State<OrganizeEventPage> createState() => _OrganizeEventPageState();

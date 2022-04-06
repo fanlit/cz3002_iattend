@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'AuthenticationService.dart';
 import 'package:cz3002_iattend/globalenv.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 setApplicationDirectory() async{
   final directory = await getApplicationDocumentsDirectory();

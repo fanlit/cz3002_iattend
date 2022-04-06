@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:math' as math;
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cz3002_iattend/Services/LocatorService.dart';
 import 'package:cz3002_iattend/Services/CameraService.dart';
-import 'package:cz3002_iattend/Services/FileImageService.dart';
 import 'package:cz3002_iattend/Widget/CameraWidget.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:cz3002_iattend/Services/MLService.dart';
-// import 'globalenv.dart';
+
 
 class PhotoTakingPage extends StatefulWidget {
   PhotoTakingPage({ Key? key}) : super(key: key);
@@ -30,7 +28,6 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
   bool imageTaken = false;
   bool faceDeteced = false;
 
-  
 
   void onFaceDetected(CameraImage image, Face? face){
     setState(() {
@@ -95,23 +92,18 @@ class _PhotoTakingPageState extends State<PhotoTakingPage> {
 
       floatingActionButton = FloatingActionButton(
         onPressed: (){
-          //TODO saving image
           userFaceArray= _mlService.setCurrentPrediction(imageToConvert, faceToConvert!);
-          //saveImage(File(imageFile!.path), FirebaseAuth.instance.currentUser!.uid);
-          //return
           Navigator.pop(context, imageFile);
         }, child: const Text("Save"));
     }
 
 
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
-                        // color: Colors.green,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[

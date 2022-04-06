@@ -17,13 +17,10 @@ class HomePage extends StatefulWidget{
 
 
 class _HomePageState extends State<HomePage> {
-  // HomePage({Key? key, required String this.username}) : super(key: key);
-  // HomePage({Key? key}) : super(key: key);
   final AuthenticationService _auth = AuthenticationService();
   final UserDataService userDataMngr = UserDataService();
   late Future user;
   iAttendUser appUser = iAttendUser("", "", "", userFaceArray);
-  // String username = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +35,6 @@ class _HomePageState extends State<HomePage> {
       userFaceArray = appUser.userFaceArray;
       setState(() {});
       },);
-    // setState(() {});
-    print(userFaceArray);
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -75,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                           MaterialPageRoute(
                               builder: (context) => AttendEventPage()));
                     },
-                    child: Text("Attend")) //TODO go to page
+                    child: Text("Attend"))
                 ),
             SizedBox(
               height: 30,

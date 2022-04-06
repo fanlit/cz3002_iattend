@@ -5,17 +5,8 @@ class AuthenticationService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // create user obj based on FirebaseUser
-  // iAttendUser _userFromFirebaseUser(User? user) {
-  //   if (user != null) {
-  //     return iAttendUser(email: user.email, firstName: user.displayName);
-  //   } else {
-  //     return null;
-  //   }}
-
   // auth change user stream
   Stream<User?> get user {
-    // return _auth.authStateChanges();
     return _auth.userChanges();
   }
 

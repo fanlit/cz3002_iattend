@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'Services/DatabaseServices/EventDataService.dart';
 import 'Services/DatabaseServices/AttendanceDataService.dart';
@@ -7,7 +5,8 @@ import 'FacialAuthenticationPage.dart';
 import 'Models/event.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
-//
+
+
 class AttendEventPage extends StatefulWidget {
   const AttendEventPage({Key? key}) : super(key: key);
 
@@ -19,8 +18,6 @@ class _AttendEventPageState extends State<AttendEventPage> {
   TextEditingController eventcode_controller = TextEditingController();
   TemplateMaker templatemkr = TemplateMaker();
   EventDataService eventMngr = EventDataService();
-
-  // TODO: set to true/false based on whether user has previous attendance with the event or not.
   late Future eventItem;
   Event eventDetails = Event("", "", "", "", "", "", "", DateTime.now(), DateTime.now());
   bool _isAttended = false;
@@ -29,7 +26,6 @@ class _AttendEventPageState extends State<AttendEventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),

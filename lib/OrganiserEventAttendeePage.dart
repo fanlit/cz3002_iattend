@@ -19,13 +19,11 @@ class _OrganiserEventAttendeePageState extends State<OrganiserEventAttendeePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
-                        // color: Colors.green,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[

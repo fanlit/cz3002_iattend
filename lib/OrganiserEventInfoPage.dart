@@ -3,7 +3,8 @@ import 'OrganiserEventAttendeePage.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Models/event.dart';
-//
+
+
 class OrganiserEventInfoPage extends StatefulWidget{
   OrganiserEventInfoPage({ Key? key, required Event this.eventItem}) : super(key: key);
   Event eventItem;
@@ -12,11 +13,8 @@ class OrganiserEventInfoPage extends StatefulWidget{
   State<OrganiserEventInfoPage> createState() => _OrganiserEventInfoPageState();
 }
 
-
 class _OrganiserEventInfoPageState extends State<OrganiserEventInfoPage>{
-  // var eventName = "gameshow 1"; //dummy data
   TemplateMaker templatemkr = TemplateMaker();
-  // TODO: pass event name from profile page to here
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,6 @@ class _OrganiserEventInfoPageState extends State<OrganiserEventInfoPage>{
               padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
               child: SingleChildScrollView(
                   child: Container(
-                    // color: Colors.green,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[

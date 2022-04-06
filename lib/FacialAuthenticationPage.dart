@@ -23,11 +23,8 @@ class _FacialAuthenticationPageState extends State<FacialAuthenticationPage> {
   final FaceDetectorService _detectorService = locator<FaceDetectorService>();
   final MLService _mlService = locator<MLService>();
   final TemplateMaker templatemkr = TemplateMaker();
-  // final AttendanceDataService attendanceMngr = AttendanceDataService();
   int popCount = 1;
   final log = Logger();
-  // XFile? imagepath;
-  // bool imageTaken = false;
   bool authenticated = false;
   int dialogShown = 0;
   String outputText = "Please show your face to the camera for attendance verification";

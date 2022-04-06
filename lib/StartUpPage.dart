@@ -18,7 +18,6 @@ class _StartUpPageState extends State<StartUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          // color: Colors.green,
           child: Padding(
             padding:
             const EdgeInsets.only(top: 100.0, left: 30, right: 30, bottom: 30),
@@ -74,9 +73,6 @@ class _StartUpPageState extends State<StartUpPage> {
                             'Register',
                             style: TextStyle(fontSize: 30, fontFamily: 'DMSans'),
                           ))),
-                  // ElevatedButton(onPressed: (){
-                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => FacialDetectionPage()));},
-                  //     child: Text("face"))
                 ]),
           ),
         ));

@@ -21,7 +21,6 @@ class _LoginPageStateState extends State<LoginPageState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
@@ -54,16 +53,11 @@ class _LoginPageStateState extends State<LoginPageState> {
                                 ]),
                             const SizedBox(height: 70),
                             Container(
-                              // color: Colors.amberAccent,
-                              //   height: 300,
-                              //   width: 300,
                                 child: Form(
                                     key: _formKey,
                                     child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          // templatemkr.Textfield(
-                                          //     "Email", "Email", email_controller),
                                           Text("Email",
                                           style: TextStyle(
                                               fontSize: fontregular,
@@ -72,7 +66,7 @@ class _LoginPageStateState extends State<LoginPageState> {
                                           )),
                                           TextFormField(
                                               validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                   border: OutlineInputBorder(), hintText: "Email"
                                               ),
                                               onChanged: (val) {
@@ -91,7 +85,7 @@ class _LoginPageStateState extends State<LoginPageState> {
                                           TextFormField(
                                               obscureText: true,
                                               validator: (val) => val!.length < 8 ? 'Password should be at least 8 chars long' : null,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                   border: OutlineInputBorder(), hintText: "Password"
                                               ),
                                               onChanged: (val) {
@@ -105,7 +99,7 @@ class _LoginPageStateState extends State<LoginPageState> {
                                             children: <Widget>[
                                               templatemkr.BackButton(
                                                   'back', context),
-                                              SizedBox(width: 20),
+                                              const SizedBox(width: 20),
                                               SizedBox(
                                                   width: 200.0,
                                                   height: 52.0,
@@ -128,14 +122,14 @@ class _LoginPageStateState extends State<LoginPageState> {
                                                       ))),
                                             ],
                                           ),
-                                          SizedBox(height: 12.0),
+                                          const SizedBox(height: 12.0),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
                                                 error,
-                                                style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                                style: const TextStyle(color: Colors.red, fontSize: 14.0),
                                               ),
                                             ],
                                           )
@@ -144,6 +138,5 @@ class _LoginPageStateState extends State<LoginPageState> {
                                 )
                           ],
                         ))))));
-
   }
 }

@@ -76,7 +76,6 @@ class MLService {
 
     this._predictedData = List.from(output);
     return this._predictedData;
-    // TODO: save _predictedData into DB.
   }
 
   double _euclideanDistance(List e1, List e2) {
@@ -90,7 +89,6 @@ class MLService {
   }
 
   bool searchResult(List predictedData) {
-    // double minDist = 0.3;
     double currDist = 0.0;
 
     currDist = _euclideanDistance(userFaceArray, predictedData);

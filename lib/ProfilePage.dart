@@ -1,11 +1,11 @@
 import 'package:cz3002_iattend/AttendListView.dart';
-import 'package:cz3002_iattend/test_db.dart';
 import 'package:flutter/material.dart';
 import 'Templates.dart';
 import 'globalenv.dart';
 import 'Services/AuthenticationService.dart';
 import 'Widget/ProfilePictureWidget.dart';
 import 'OrganisedListView.dart';
+
 
 class ProfilePageState extends StatelessWidget {
   TemplateMaker templatemkr = TemplateMaker();
@@ -15,13 +15,11 @@ class ProfilePageState extends StatelessWidget {
   Widget build(BuildContext context) {
     username = _auth.getCurrentDisplayName().toString();
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Container(
             child: Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                 child: SingleChildScrollView(
                     child: Container(
-                        // color: Colors.green,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
@@ -53,7 +51,7 @@ class ProfilePageState extends StatelessWidget {
                                         fontWeight: FontWeight.bold))
                               ])),
                       Container(
-                          color: Color.fromRGBO(
+                          color: const Color.fromRGBO(
                               199, 199, 199, 1), // background color
                           height: 400,
                           width: 350,
@@ -71,7 +69,7 @@ class ProfilePageState extends StatelessWidget {
                                                 builder: (context) =>
                                                     AttendedListState()));
                                         //Navigator.push(context, MaterialPageRoute(builder: (context) => TestDBPage()));
-                                      }, // TODO: show attended events
+                                      },
                                       child: const Text(
                                         'Attended',
                                         style: TextStyle(
@@ -88,7 +86,7 @@ class ProfilePageState extends StatelessWidget {
                                               builder: (context) =>
                                                   ListExampleClick()),
                                         );
-                                      }, // TODO: show organised events
+                                      },
                                       child: const Text(
                                         'Organised',
                                         style: TextStyle(

@@ -13,7 +13,6 @@ class Wrapper extends StatelessWidget {
       return StartUpPage(title: 'iAttend Demo Home Page');
     }
     else {
-      // return HomePage(username: user.displayName!);
       return HomePage();
     }
   }
